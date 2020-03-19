@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                           ),
                     ),
                     Text(
-                      '${locData.countriesList.length} Areas Affected',
+                      '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
                             fontFamily: pMedium,
