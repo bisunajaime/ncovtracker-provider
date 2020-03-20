@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:ncov_tracker/main.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
-import 'package:ncov_tracker/utils/more_results_data.dart';
 import 'package:ncov_tracker/widgets/stateful_wrapper.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:ncov_tracker/constants/const_vars.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locData = Provider.of<LocationData>(context);
-    final moreData = Provider.of<MoreResultsData>(context);
     return StatefulWrapper(
       onInit: locData.loadData,
       child: Scaffold(
         backgroundColor: Color(0xff330000),
         appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.refresh),
-            )
-          ],
           backgroundColor: Color(0xff3E0000),
           title: Column(
             children: <Widget>[
@@ -85,7 +78,79 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
+                MaterialButton(
+                  onPressed: () => Navigator.pushNamed(context, 'world_totals'),
+                  color: Color(0xff2F0000),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.insert_chart,
+                      color: Colors.orangeAccent[100],
+                    ),
+                    title: Text(
+                      'World Totals',
+                      style: Theme.of(context).textTheme.title.copyWith(
+                            fontSize: 15.0,
+                            fontFamily: 'Poppins-Regular',
+                          ),
+                    ),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, 'latest_updates'),
+                  color: Color(0xff2F0000),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.update,
+                      color: Colors.lightBlueAccent[100],
+                    ),
+                    title: Text(
+                      'Latest Updates',
+                      style: Theme.of(context).textTheme.title.copyWith(
+                            fontSize: 15.0,
+                            fontFamily: 'Poppins-Regular',
+                          ),
+                    ),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {},
+                  color: Color(0xff2F0000),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.map,
+                      color: Colors.greenAccent[100],
+                    ),
+                    title: Text(
+                      'Maps',
+                      style: Theme.of(context).textTheme.title.copyWith(
+                            fontSize: 15.0,
+                            fontFamily: 'Poppins-Regular',
+                          ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(),
+                ),
+                MaterialButton(
+                  onPressed: () {},
+                  color: Color(0xff2F0000),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.copyright,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'Copyright',
+                      style: Theme.of(context).textTheme.title.copyWith(
+                            fontSize: 15.0,
+                            fontFamily: 'Poppins-Regular',
+                          ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

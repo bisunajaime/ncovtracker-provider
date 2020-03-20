@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
+import 'package:ncov_tracker/pages/latest_updates.dart';
+import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
-import 'package:ncov_tracker/utils/more_results_data.dart';
 import 'package:provider/provider.dart';
+import 'constants/const_vars.dart';
 
 void main() => runApp(MyApp());
-
-String pBlack = 'Poppins-Black';
-String pBold = 'Poppins-Bold';
-String pMedium = 'Poppins-Medium';
-String pRegular = 'Poppins-Regular';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -26,45 +23,46 @@ class MyApp extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: MaterialApp(
-        title: 'nCovEr',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            scaffoldBackgroundColor: Colors.black,
-            textTheme: TextTheme(
-              title: TextStyle(
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Colors.black,
-                  )
-                ],
-                fontSize: 17.0,
-                fontFamily: pBold,
-              ),
-              body1: TextStyle(
-                color: Colors.white,
-                fontSize: 17.0,
-                fontFamily: pBold,
-              ),
-              body2: TextStyle(
-                color: Colors.white,
-                fontSize: 12.0,
-                fontFamily: pRegular,
-              ),
-            )),
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider<LocationData>(
-              create: (context) => LocationData(),
-              lazy: true,
-            ),
-            ChangeNotifierProvider<MoreResultsData>(
-              create: (context) => MoreResultsData(),
-            )
-          ],
-          child: HomePage(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LocationData>(
+            create: (context) => LocationData(),
+            lazy: true,
+          ),
+        ],
+        child: MaterialApp(
+          title: 'nCovEr',
+          debugShowCheckedModeBanner: false,
+          routes: {
+            'world_totals': (context) => WorldTotals(),
+            'latest_updates': (context) => LatestUpdatesPage(),
+          },
+          theme: ThemeData(
+              scaffoldBackgroundColor: Colors.black,
+              textTheme: TextTheme(
+                title: TextStyle(
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 5.0,
+                      color: Colors.black,
+                    )
+                  ],
+                  fontSize: 17.0,
+                  fontFamily: pBold,
+                ),
+                body1: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17.0,
+                  fontFamily: pBold,
+                ),
+                body2: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.0,
+                  fontFamily: pRegular,
+                ),
+              )),
+          home: HomePage(),
         ),
       ),
     );

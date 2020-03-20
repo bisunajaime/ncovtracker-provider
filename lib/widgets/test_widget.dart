@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ncov_tracker/main.dart';
 import 'package:ncov_tracker/models/location_model.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
 import 'package:provider/provider.dart';
+import 'package:ncov_tracker/constants/const_vars.dart';
 
 class TestWidget extends StatelessWidget {
   @override

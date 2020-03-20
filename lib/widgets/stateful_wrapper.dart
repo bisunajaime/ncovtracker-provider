@@ -13,7 +13,6 @@ class StatefulWrapper extends StatefulWidget {
 class _StatefulWrapperState extends State<StatefulWrapper> {
   @override
   void initState() {
-    // TODO: implement initState
     if (widget.onInit != null) {
       widget.onInit();
     }

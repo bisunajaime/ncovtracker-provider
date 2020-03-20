@@ -6,12 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
 import 'package:ncov_tracker/models/location_model.dart';
+import 'package:ncov_tracker/models/more_results.dart';
 
 class LocationData extends ChangeNotifier {
   String _searchTxt = "";
-  dom.Document _doc;
   int _counter = 0;
   bool _loading = true;
+  dom.Document _document;
+  MoreResults _moreResults;
 
   List<String> _countriesList = [];
   List<String> _totalCasesList = [];
@@ -21,9 +23,7 @@ class LocationData extends ChangeNotifier {
   List<String> _totalRecoveredList = [];
   List<String> _activeCasesList = [];
   List<String> _seriousCriticalList = [];
-
   List<dom.Element> _totalCases = [];
-
   List<LocationModel> _locationList = [];
 
   DateTime _date = DateTime.now();
@@ -38,19 +38,27 @@ class LocationData extends ChangeNotifier {
     return _controller;
   }
 
-  dom.Document get doc {
-    return _doc;
-  }
-
-  _setDoc(dom.Document theDoc) {
-    _doc = theDoc;
-  }
-
   search(String str) {
     _controller.addListener(() {
       _searchTxt = _controller.text;
     });
     notifyListeners();
+  }
+
+  dom.Document get document {
+    return _document;
+  }
+
+  MoreResults get moreResults {
+    return _moreResults;
+  }
+
+  _setMoreResults(MoreResults moreResults) {
+    _moreResults = moreResults;
+  }
+
+  _setDocument(dom.Document doc) {
+    _document = doc;
   }
 
   void clearTxt() {
@@ -258,7 +266,8 @@ class LocationData extends ChangeNotifier {
         await client.get('https://www.worldometers.info/coronavirus/');
     // parse response body
     var document = parse(response.body);
-    _setDoc(document);
+    _setDocument(document);
+    _getTotals();
     // select table data
     _totalCases = document
         .querySelectorAll('#main_table_countries_today > tbody > tr > td');
@@ -277,5 +286,25 @@ class LocationData extends ChangeNotifier {
     print(locationList.length);
     setLoading(false);
     _removeLastItem();
+  }
+
+  void _getTotals() {
+    List<dom.Element> totalsCDR = document
+        .querySelectorAll('body div#maincounter-wrap .maincounter-number span');
+    print('printing');
+    List<dom.Element> totalsARC =
+        document.querySelectorAll('body div.panel_front div.number-table-main');
+    List<dom.Element> totalsSD =
+        document.querySelectorAll('body div.panel_front span.number-table');
+    _setMoreResults(MoreResults(
+      totalCases: totalsCDR[0].innerHtml.trim() ?? 'NONE',
+      totalDeaths: totalsCDR[1].innerHtml.trim() ?? 'NONE',
+      totalRecovered: totalsCDR[2].innerHtml.trim() ?? 'NONE',
+      totalActiveCases: totalsARC[0].innerHtml.trim() ?? 'NONE',
+      totalClosedCases: totalsARC[1].innerHtml.trim() ?? 'NONE',
+      totalMild: totalsSD[0].innerHtml.trim() ?? 'NONE',
+      totalSeriousCritical: totalsSD[1].innerHtml.trim() ?? 'NONE',
+      totalDischarged: totalsSD[2].innerHtml.trim() ?? 'NONE',
+    ));
   }
 }
