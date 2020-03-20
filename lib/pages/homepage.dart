@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ncov_tracker/main.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
+import 'package:ncov_tracker/utils/more_results_data.dart';
 import 'package:ncov_tracker/widgets/stateful_wrapper.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +10,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locData = Provider.of<LocationData>(context);
+    final moreData = Provider.of<MoreResultsData>(context);
     return StatefulWrapper(
       onInit: locData.loadData,
       child: Scaffold(
         backgroundColor: Color(0xff330000),
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+            )
+          ],
           backgroundColor: Color(0xff3E0000),
           title: Column(
             children: <Widget>[

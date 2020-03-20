@@ -9,6 +9,7 @@ import 'package:ncov_tracker/models/location_model.dart';
 
 class LocationData extends ChangeNotifier {
   String _searchTxt = "";
+  dom.Document _doc;
   int _counter = 0;
   bool _loading = true;
 
@@ -37,6 +38,14 @@ class LocationData extends ChangeNotifier {
     return _controller;
   }
 
+  dom.Document get doc {
+    return _doc;
+  }
+
+  _setDoc(dom.Document theDoc) {
+    _doc = theDoc;
+  }
+
   search(String str) {
     _controller.addListener(() {
       _searchTxt = _controller.text;
@@ -62,6 +71,10 @@ class LocationData extends ChangeNotifier {
 
   String get date {
     return DateFormat.yMMMd().add_jm().format(_date);
+  }
+
+  _setDate(DateTime theDate) {
+    _date = theDate;
   }
 
   bool get loading => _loading;
@@ -109,38 +122,6 @@ class LocationData extends ChangeNotifier {
 
   List<LocationModel> get locationList {
     return _locationList;
-  }
-
-  void loadData() async {
-    // clear list
-    _clearLists();
-    _date = DateTime.now();
-    setLoading(true);
-    print(_countriesList.length);
-    // make http request
-    http.Client client = http.Client();
-    http.Response response =
-        await client.get('https://www.worldometers.info/coronavirus/');
-    // parse response body
-    var document = parse(response.body);
-    // select table data
-    _totalCases = document
-        .querySelectorAll('#main_table_countries_today > tbody > tr > td');
-    // loop and extract data
-    for (var i = 0; i < _totalCases.length; i++) {
-      _addTotalCases(i);
-      _addTotalCasesList(i);
-      _addNewCasesList(i);
-      _addTotalDeathsList(i);
-      _addNewDeathsList(i);
-      _addTotalRecoveredList(i);
-      _addActiveCasesList(i);
-      _addSerioudCriticalList(i);
-    }
-    _addToDataList();
-    print(locationList.length);
-    setLoading(false);
-    _removeLastItem();
   }
 
   void _addTotalCases(int i) {
@@ -263,5 +244,38 @@ class LocationData extends ChangeNotifier {
       };
       locationList.add(LocationModel.fromJson(json));
     }
+  }
+
+  void loadData() async {
+    // clear list
+    _clearLists();
+    _setDate(DateTime.now());
+    setLoading(true);
+    print(_countriesList.length);
+    // make http request
+    http.Client client = http.Client();
+    http.Response response =
+        await client.get('https://www.worldometers.info/coronavirus/');
+    // parse response body
+    var document = parse(response.body);
+    _setDoc(document);
+    // select table data
+    _totalCases = document
+        .querySelectorAll('#main_table_countries_today > tbody > tr > td');
+    // loop and extract data
+    for (var i = 0; i < _totalCases.length; i++) {
+      _addTotalCases(i);
+      _addTotalCasesList(i);
+      _addNewCasesList(i);
+      _addTotalDeathsList(i);
+      _addNewDeathsList(i);
+      _addTotalRecoveredList(i);
+      _addActiveCasesList(i);
+      _addSerioudCriticalList(i);
+    }
+    _addToDataList();
+    print(locationList.length);
+    setLoading(false);
+    _removeLastItem();
   }
 }

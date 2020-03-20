@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
+import 'package:ncov_tracker/utils/more_results_data.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
               create: (context) => LocationData(),
               lazy: true,
             ),
+            ChangeNotifierProvider<MoreResultsData>(
+              create: (context) => MoreResultsData(),
+            )
           ],
           child: HomePage(),
         ),
