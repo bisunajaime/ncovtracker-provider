@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
 import 'package:ncov_tracker/pages/latest_updates.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
+import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:provider/provider.dart';
 import 'constants/const_vars.dart';
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<LocationData>(
             create: (context) => LocationData(),
+            lazy: true,
+          ),
+          ChangeNotifierProvider<LatestUpdatesData>(
+            create: (context) => LatestUpdatesData(),
             lazy: true,
           ),
         ],

@@ -80,7 +80,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 MaterialButton(
-                  onPressed: () => Navigator.pushNamed(context, 'world_totals'),
+                  onPressed: () => locData.loading
+                      ? null
+                      : Navigator.pushNamed(context, 'world_totals'),
                   color: Color(0xff2F0000),
                   child: ListTile(
                     leading: Icon(
@@ -88,7 +90,7 @@ class HomePage extends StatelessWidget {
                       color: Colors.orangeAccent[100],
                     ),
                     title: Text(
-                      'World Totals',
+                      '${locData.loading ? 'Loading ' : ''}World Totals',
                       style: Theme.of(context).textTheme.title.copyWith(
                             fontSize: 15.0,
                             fontFamily: 'Poppins-Regular',
