@@ -114,7 +114,7 @@ class LocationData extends ChangeNotifier {
   void loadData() async {
     // clear list
     _clearLists();
-
+    _date = DateTime.now();
     setLoading(true);
     print(_countriesList.length);
     // make http request
