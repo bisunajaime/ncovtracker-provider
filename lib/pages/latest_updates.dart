@@ -15,24 +15,12 @@ class LatestUpdatesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: darkRed,
         centerTitle: true,
-        title: Column(
-          children: <Widget>[
-            Text(
-              'Latest Updates',
-              style: Theme.of(context).textTheme.title.copyWith(
-                    fontSize: 20.0,
-                    fontFamily: pMedium,
-                  ),
-            ),
-            Text(
-              '${latestUpdates.date}',
-              style: Theme.of(context).textTheme.subtitle.copyWith(
-                    fontSize: 12.0,
-                    color: Colors.white,
-                    fontFamily: pRegular,
-                  ),
-            ),
-          ],
+        title: Text(
+          'Latest Updates',
+          style: Theme.of(context).textTheme.title.copyWith(
+                fontSize: 20.0,
+                fontFamily: pMedium,
+              ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -50,42 +38,60 @@ class LatestUpdatesPage extends StatelessWidget {
               children: <Widget>[
                 //Search
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: pMedium,
-                    ),
-                    controller: latestUpdates.controller,
-                    onChanged: latestUpdates.search,
-                    decoration: InputDecoration(
-                      suffixIcon: GestureDetector(
-                        child: Icon(
-                          Icons.backspace,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextField(
+                        style: TextStyle(
                           color: Colors.white,
+                          fontFamily: pMedium,
                         ),
-                        onTap: latestUpdates.clearTxt,
+                        controller: latestUpdates.controller,
+                        onChanged: latestUpdates.search,
+                        decoration: InputDecoration(
+                          suffixIcon: GestureDetector(
+                            child: Icon(
+                              Icons.backspace,
+                              color: Colors.white,
+                            ),
+                            onTap: latestUpdates.clearTxt,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          filled: true,
+                          fillColor: Color(0xffC04848),
+                          hintText: 'Search here...',
+                          hintStyle: TextStyle(
+                            fontFamily: pMedium,
+                            color: Colors.white,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff5433FF),
+                              style: BorderStyle.solid,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        scrollPhysics: BouncingScrollPhysics(),
                       ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      filled: true,
-                      fillColor: Color(0xffC04848),
-                      hintText: 'Search here...',
-                      hintStyle: TextStyle(
-                        fontFamily: pMedium,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xff5433FF),
-                          style: BorderStyle.solid,
-                          width: 1.0,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Text(
+                          'As of ${latestUpdates.date}',
+                          style: Theme.of(context).textTheme.subtitle.copyWith(
+                                fontSize: 20.0,
+                                color: Colors.white,
+                                fontFamily: pRegular,
+                              ),
                         ),
                       ),
-                    ),
-                    scrollPhysics: BouncingScrollPhysics(),
+                    ],
                   ),
                 ),
                 //Latest News
@@ -166,7 +172,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                                     .subtitle
                                                     .copyWith(
                                                       fontFamily: pMedium,
-                                                      fontSize: 10.0,
+                                                      fontSize: 13.0,
                                                       color: Colors.white,
                                                     ),
                                               ),

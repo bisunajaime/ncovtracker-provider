@@ -30,6 +30,10 @@ class LocationData extends ChangeNotifier {
 
   TextEditingController _controller = TextEditingController();
 
+  LocationData() {
+    loadData();
+  }
+
   String get searchTxt {
     return _searchTxt;
   }

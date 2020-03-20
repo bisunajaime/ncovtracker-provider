@@ -15,6 +15,10 @@ class LatestUpdatesData extends ChangeNotifier {
 
   TextEditingController get controller => _controller;
 
+  LatestUpdatesData() {
+    loadLatestUpdates();
+  }
+
   setTextController(TextEditingController controller) {
     _controller = controller;
     notifyListeners();
@@ -77,10 +81,8 @@ class LatestUpdatesData extends ChangeNotifier {
     _setLoading(true);
     _setDate(DateTime.now());
     http.Client client = http.Client();
-    http.Response response =
-        await client.get('https://www.worldometers.info/coronavirus/');
+    http.Response response = await client.get(_url);
     var document = parse(response.body);
-    dom.Element news_block = document.getElementById('news_block');
     Map<String, dynamic> listUpdateData = {};
     List<String> storedStrong = [];
 
