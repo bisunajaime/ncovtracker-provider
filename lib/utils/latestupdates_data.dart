@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';

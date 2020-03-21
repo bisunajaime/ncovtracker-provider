@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
-import 'package:ncov_tracker/widgets/stateful_wrapper.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
