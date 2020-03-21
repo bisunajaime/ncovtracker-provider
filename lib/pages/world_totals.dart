@@ -15,7 +15,7 @@ class WorldTotals extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff3E0000),
+        backgroundColor: eerieBlack,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,9 +30,9 @@ class WorldTotals extends StatelessWidget {
             Text(
               '${locData.date}',
               style: Theme.of(context).textTheme.subtitle.copyWith(
-                    fontSize: 12.0,
+                    fontSize: 10.0,
                     color: Colors.redAccent[100],
-                    fontFamily: pBold,
+                    fontFamily: pMedium,
                   ),
             ),
           ],
@@ -43,7 +43,7 @@ class WorldTotals extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: darkRed,
+          color: Color(0xff0b0408),
         ),
         child: ListView(
           children: <Widget>[
@@ -94,7 +94,7 @@ class WorldTotals extends StatelessWidget {
                 TotalsWidget(
                   data: '${locData.moreResults.totalMild}',
                   dataColor: _parseString(locData.moreResults.totalMild) > 10
-                      ? Colors.cyanAccent
+                      ? Colors.purpleAccent[100]
                       : Colors.amberAccent,
                   dataType: 'Mild Condition',
                 )

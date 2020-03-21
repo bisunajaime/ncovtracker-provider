@@ -60,8 +60,8 @@ class DataWidget extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xff480048),
-            Color(0xff9C3737),
+            eerieBlack,
+            richBlack,
           ],
         ),
         boxShadow: [

@@ -38,8 +38,8 @@ class TotalsWidget extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              lightPurple,
-              darkPurple,
+              smokyBlack,
+              eerieBlack,
             ],
           ),
         ),

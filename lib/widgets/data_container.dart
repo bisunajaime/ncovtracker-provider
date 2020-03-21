@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ncov_tracker/constants/const_vars.dart';
 
 class DataContainer extends StatelessWidget {
   final String data;
@@ -15,7 +16,7 @@ class DataContainer extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
-          color: Color(0xff1F0046),
+          color: oldBurgundy,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
@@ -31,12 +32,14 @@ class DataContainer extends StatelessWidget {
               data,
               style: Theme.of(context).textTheme.body1.copyWith(
                     color: dataColor,
-                    fontSize: 19.0,
+                    fontSize: 17.0,
                   ),
             ),
             Text(
               type,
-              style: Theme.of(context).textTheme.body2.copyWith(),
+              style: Theme.of(context).textTheme.body2.copyWith(
+                    fontSize: 11,
+                  ),
             )
           ],
         ),

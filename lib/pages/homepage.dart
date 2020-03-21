@@ -10,9 +10,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final locData = Provider.of<LocationData>(context);
     return Scaffold(
-      backgroundColor: Color(0xff330000),
+      backgroundColor: smokyBlack,
       appBar: AppBar(
-        backgroundColor: Color(0xff3E0000),
+        backgroundColor: eerieBlack,
         title: Column(
           children: <Widget>[
             Text(
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
       ),
       drawer: Drawer(
         child: Container(
-          color: Color(0xff533838),
+          color: eerieBlack,
           child: Column(
             children: <Widget>[
               Container(
@@ -46,8 +46,8 @@ class HomePage extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xff6B0101),
-                      Color(0xff2F0000),
+                      smokyBlack,
+                      richBlack,
                     ],
                   ),
                 ),
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () => locData.loading
                     ? null
                     : Navigator.pushNamed(context, 'world_totals'),
-                color: Color(0xff2F0000),
+                color: richBlack,
                 child: ListTile(
                   leading: Icon(
                     Icons.insert_chart,
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () => Navigator.pushNamed(context, 'latest_updates'),
-                color: Color(0xff2F0000),
+                color: richBlack,
                 child: ListTile(
                   leading: Icon(
                     Icons.update,
@@ -121,7 +121,7 @@ class HomePage extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {},
-                color: Color(0xff2F0000),
+                color: richBlack,
                 child: ListTile(
                   leading: Icon(
                     Icons.map,
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {},
-                color: Color(0xff2F0000),
+                color: richBlack,
                 child: ListTile(
                   leading: Icon(
                     Icons.copyright,
@@ -162,7 +162,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: locData.loadData,
-        backgroundColor: Color(0xffC04848),
+        backgroundColor: richBlack,
         child: Icon(Icons.refresh),
       ),
       body: locData.loading
@@ -211,7 +211,7 @@ class HomePage extends StatelessWidget {
                             color: Colors.white,
                           ),
                           filled: true,
-                          fillColor: Color(0xffC04848),
+                          fillColor: eerieBlack,
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
