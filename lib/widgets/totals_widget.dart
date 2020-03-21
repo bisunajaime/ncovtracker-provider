@@ -38,8 +38,8 @@ class TotalsWidget extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              lightPurple,
-              darkPurple,
+              Color(0xff480048),
+              Color(0xff9C3737),
             ],
           ),
         ),
@@ -56,7 +56,7 @@ class TotalsWidget extends StatelessWidget {
               '$dataType',
               style: textTheme.subtitle.copyWith(
                 fontSize: 13.0,
-                fontFamily: pMedium,
+                fontFamily: helveticaMd,
                 color: Colors.white,
               ),
             ),

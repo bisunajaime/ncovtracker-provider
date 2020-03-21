@@ -87,7 +87,9 @@ class DataWidget extends StatelessWidget {
                     ),
                     Text(
                       '${loc.country}',
-                      style: Theme.of(context).textTheme.title.copyWith(),
+                      style: Theme.of(context).textTheme.title.copyWith(
+                            fontFamily: helveticaHv,
+                          ),
                     ),
                   ],
                 ),
@@ -102,7 +104,7 @@ class DataWidget extends StatelessWidget {
                       color: loc.newCases == 'NO'
                           ? Colors.greenAccent
                           : Colors.yellowAccent,
-                      fontFamily: pBold,
+                      fontFamily: helveticaBd,
                     ),
                   ),
                   Text(

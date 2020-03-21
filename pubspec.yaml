@@ -74,6 +74,15 @@ flutter:
     - family: Poppins-Regular
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+    - family: Helvetica-Med
+      fonts:
+        - asset: assets/fonts/HelveticaNeueMed.ttf
+    - family: Helvetica-Bold
+      fonts:
+        - asset: assets/fonts/HelveticaNeueBd.ttf
+    - family: Helvetica-Hv
+      fonts:
+        - asset: assets/fonts/HelveticaNeueHv.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

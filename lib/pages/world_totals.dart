@@ -24,15 +24,15 @@ class WorldTotals extends StatelessWidget {
               'World Totals',
               style: Theme.of(context).textTheme.title.copyWith(
                     fontSize: 20.0,
-                    fontFamily: pMedium,
+                    fontFamily: helveticaHv,
                   ),
             ),
             Text(
               '${locData.date}',
               style: Theme.of(context).textTheme.subtitle.copyWith(
                     fontSize: 12.0,
-                    color: Colors.white,
-                    fontFamily: pRegular,
+                    color: Colors.redAccent[100],
+                    fontFamily: helveticaBd,
                   ),
             ),
           ],
@@ -105,7 +105,7 @@ class WorldTotals extends StatelessWidget {
                 TotalsWidget(
                   data: '${locData.moreResults.totalSeriousCritical}',
                   dataColor: _parseString(locData.moreResults.totalMild) > 10
-                      ? Colors.redAccent[400]
+                      ? Colors.yellowAccent[100]
                       : Colors.amberAccent,
                   dataType: 'Serious / Critical',
                 ),

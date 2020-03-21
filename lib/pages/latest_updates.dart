@@ -19,15 +19,16 @@ class LatestUpdatesPage extends StatelessWidget {
           'Latest Updates',
           style: Theme.of(context).textTheme.title.copyWith(
                 fontSize: 20.0,
-                fontFamily: pMedium,
+                fontFamily: helveticaHv,
               ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: lightPurple,
+        backgroundColor: Colors.redAccent[100],
         onPressed: latestUpdates.loadLatestUpdates,
         child: Icon(
           Icons.refresh,
+          color: Colors.black,
         ),
       ),
       body: latestUpdates.loading
@@ -47,7 +48,7 @@ class LatestUpdatesPage extends StatelessWidget {
                       TextField(
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: pMedium,
+                          fontFamily: helveticaMd,
                         ),
                         controller: latestUpdates.controller,
                         onChanged: latestUpdates.search,
@@ -67,7 +68,7 @@ class LatestUpdatesPage extends StatelessWidget {
                           fillColor: Color(0xffC04848),
                           hintText: 'Search here...',
                           hintStyle: TextStyle(
-                            fontFamily: pMedium,
+                            fontFamily: helveticaMd,
                             color: Colors.white,
                           ),
                           border: OutlineInputBorder(
@@ -85,9 +86,9 @@ class LatestUpdatesPage extends StatelessWidget {
                         child: Text(
                           'As of ${latestUpdates.date}',
                           style: Theme.of(context).textTheme.subtitle.copyWith(
-                                fontSize: 20.0,
+                                fontSize: 15.0,
                                 color: Colors.white,
-                                fontFamily: pRegular,
+                                fontFamily: helveticaBd,
                               ),
                         ),
                       ),
@@ -131,7 +132,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                         .textTheme
                                         .title
                                         .copyWith(
-                                      fontFamily: pBold,
+                                      fontFamily: helveticaBd,
                                       color: Colors.black,
                                       shadows: [],
                                     ),
@@ -171,7 +172,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                                     .textTheme
                                                     .subtitle
                                                     .copyWith(
-                                                      fontFamily: pMedium,
+                                                      fontFamily: helveticaMd,
                                                       fontSize: 13.0,
                                                       color: Colors.white,
                                                     ),

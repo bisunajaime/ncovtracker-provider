@@ -32,9 +32,12 @@ class DataContainer extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.body1.copyWith(color: dataColor),
             ),
+            SizedBox(
+              height: 5.0,
+            ),
             Text(
               type,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.body2.copyWith(),
             )
           ],
         ),

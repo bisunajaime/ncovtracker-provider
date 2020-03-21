@@ -5,6 +5,10 @@ const String pBold = 'Poppins-Bold';
 const String pMedium = 'Poppins-Medium';
 const String pRegular = 'Poppins-Regular';
 
+const String helveticaHv = 'Helvetica-Hv';
+const String helveticaBd = 'Helvetica-Bold';
+const String helveticaMd = 'Helvetica-Med';
+
 // colors
 const Color lightRed = Color(0xff6B0101);
 const Color darkRed = Color(0xff2F0000);
