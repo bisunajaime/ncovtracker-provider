@@ -17,6 +17,7 @@ class LatestUpdatesData extends ChangeNotifier {
 
   LatestUpdatesData() {
     loadLatestUpdates();
+    notifyListeners();
   }
 
   setTextController(TextEditingController controller) {

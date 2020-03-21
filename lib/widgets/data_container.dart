@@ -29,11 +29,10 @@ class DataContainer extends StatelessWidget {
           children: <Widget>[
             Text(
               data,
-              style:
-                  Theme.of(context).textTheme.body1.copyWith(color: dataColor),
-            ),
-            SizedBox(
-              height: 5.0,
+              style: Theme.of(context).textTheme.body1.copyWith(
+                    color: dataColor,
+                    fontSize: 19.0,
+                  ),
             ),
             Text(
               type,

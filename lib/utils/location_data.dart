@@ -32,6 +32,7 @@ class LocationData extends ChangeNotifier {
 
   LocationData() {
     loadData();
+    notifyListeners();
   }
 
   String get searchTxt {

@@ -54,17 +54,17 @@ class MyApp extends StatelessWidget {
                     )
                   ],
                   fontSize: 17.0,
-                  fontFamily: helveticaBd,
+                  fontFamily: pBold,
                 ),
                 body1: TextStyle(
                   color: Colors.white,
                   fontSize: 17.0,
-                  fontFamily: helveticaBd,
+                  fontFamily: pBold,
                 ),
                 body2: TextStyle(
                   color: Colors.white,
                   fontSize: 12.0,
-                  fontFamily: helveticaMd,
+                  fontFamily: pMedium,
                 ),
               )),
           home: HomePage(),

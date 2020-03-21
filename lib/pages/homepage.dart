@@ -18,14 +18,14 @@ class HomePage extends StatelessWidget {
             Text(
               'nCovEr',
               style: TextStyle(
-                fontFamily: helveticaBd,
+                fontFamily: pBold,
               ),
             ),
             Text(
               '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
               style: TextStyle(
                 fontSize: 12.0,
-                fontFamily: helveticaMd,
+                fontFamily: pMedium,
                 color: Color(0xffDAACAC),
               ),
             )
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                       '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
-                            fontFamily: helveticaMd,
+                            fontFamily: pMedium,
                           ),
                     ),
                     SizedBox(
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                       '${locData.date}',
                       style: Theme.of(context).textTheme.body2.copyWith(
                             color: Colors.amberAccent,
-                            fontFamily: helveticaMd,
+                            fontFamily: pMedium,
                           ),
                     ),
                   ],
@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
                     '${locData.loading ? 'Loading ' : ''}World Totals',
                     style: Theme.of(context).textTheme.title.copyWith(
                           fontSize: 15.0,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                   ),
                 ),
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
                     'Latest Updates',
                     style: Theme.of(context).textTheme.title.copyWith(
                           fontSize: 15.0,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                   ),
                 ),
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                     'Maps',
                     style: Theme.of(context).textTheme.title.copyWith(
                           fontSize: 15.0,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                   ),
                 ),
@@ -151,7 +151,7 @@ class HomePage extends StatelessWidget {
                     'Copyright',
                     style: Theme.of(context).textTheme.title.copyWith(
                           fontSize: 15.0,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                   ),
                 ),
@@ -167,9 +167,19 @@ class HomePage extends StatelessWidget {
       ),
       body: locData.loading
           ? Center(
-              child: CircularProgressIndicator(
-              backgroundColor: Color(0xffC04848),
-              valueColor: new AlwaysStoppedAnimation<Color>(Color(0xff3E0000)),
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(
+                  backgroundColor: Color(0xffC04848),
+                  valueColor:
+                      new AlwaysStoppedAnimation<Color>(Color(0xff3E0000)),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text('Loading'),
+              ],
             ))
           : Column(
               children: <Widget>[
@@ -184,7 +194,7 @@ class HomePage extends StatelessWidget {
                       TextField(
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                         controller: locData.controller,
                         onChanged: locData.search,
@@ -204,7 +214,7 @@ class HomePage extends StatelessWidget {
                           fillColor: Color(0xffC04848),
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
-                            fontFamily: helveticaMd,
+                            fontFamily: pMedium,
                             color: Colors.white,
                           ),
                           border: OutlineInputBorder(
@@ -223,7 +233,8 @@ class HomePage extends StatelessWidget {
                       Text(
                         'As of ${locData.date}',
                         style: Theme.of(context).textTheme.body2.copyWith(
-                              fontFamily: helveticaBd,
+                              fontFamily: pMedium,
+                              fontSize: 17.0,
                             ),
                       )
                     ],

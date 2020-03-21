@@ -19,7 +19,7 @@ class LatestUpdatesPage extends StatelessWidget {
           'Latest Updates',
           style: Theme.of(context).textTheme.title.copyWith(
                 fontSize: 20.0,
-                fontFamily: helveticaHv,
+                fontFamily: pBold,
               ),
         ),
       ),
@@ -33,7 +33,18 @@ class LatestUpdatesPage extends StatelessWidget {
       ),
       body: latestUpdates.loading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    'Loading',
+                  ),
+                ],
+              ),
             )
           : Column(
               children: <Widget>[
@@ -48,7 +59,7 @@ class LatestUpdatesPage extends StatelessWidget {
                       TextField(
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: helveticaMd,
+                          fontFamily: pMedium,
                         ),
                         controller: latestUpdates.controller,
                         onChanged: latestUpdates.search,
@@ -66,9 +77,9 @@ class LatestUpdatesPage extends StatelessWidget {
                           ),
                           filled: true,
                           fillColor: Color(0xffC04848),
-                          hintText: 'Search here...',
+                          hintText: 'Search a country',
                           hintStyle: TextStyle(
-                            fontFamily: helveticaMd,
+                            fontFamily: pMedium,
                             color: Colors.white,
                           ),
                           border: OutlineInputBorder(
@@ -86,9 +97,9 @@ class LatestUpdatesPage extends StatelessWidget {
                         child: Text(
                           'As of ${latestUpdates.date}',
                           style: Theme.of(context).textTheme.subtitle.copyWith(
-                                fontSize: 15.0,
+                                fontSize: 17.0,
                                 color: Colors.white,
-                                fontFamily: helveticaBd,
+                                fontFamily: pMedium,
                               ),
                         ),
                       ),
@@ -132,7 +143,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                         .textTheme
                                         .title
                                         .copyWith(
-                                      fontFamily: helveticaBd,
+                                      fontFamily: pMedium,
                                       color: Colors.black,
                                       shadows: [],
                                     ),
@@ -172,8 +183,8 @@ class LatestUpdatesPage extends StatelessWidget {
                                                     .textTheme
                                                     .subtitle
                                                     .copyWith(
-                                                      fontFamily: helveticaMd,
-                                                      fontSize: 12.0,
+                                                      fontFamily: pRegular,
+                                                      fontSize: 11.0,
                                                       color: Colors.white,
                                                     ),
                                               ),
