@@ -173,7 +173,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                                     .subtitle
                                                     .copyWith(
                                                       fontFamily: helveticaMd,
-                                                      fontSize: 13.0,
+                                                      fontSize: 12.0,
                                                       color: Colors.white,
                                                     ),
                                               ),
