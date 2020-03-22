@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ncov_tracker/models/location_model.dart';
+import 'package:ncov_tracker/pages/countrydetails_page.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
 import 'package:provider/provider.dart';
@@ -202,7 +203,14 @@ class DataWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CountryDetails(
+                    locationModel: loc,
+                  ),
+                ),
+              ),
               color: bistre,
               splashColor: Colors.white,
               shape: RoundedRectangleBorder(

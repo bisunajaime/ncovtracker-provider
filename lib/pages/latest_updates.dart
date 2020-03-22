@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
-import 'package:ncov_tracker/utils/location_data.dart';
-import 'package:ncov_tracker/widgets/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
 
 class LatestUpdatesPage extends StatelessWidget {
