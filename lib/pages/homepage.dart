@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:provider/provider.dart';
@@ -119,7 +120,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               MaterialButton(
-                onPressed: () => Navigator.pushNamed(context, 'maps'),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MapsPage(
+                      locationData: locData.locationList,
+                    ),
+                  ),
+                ),
                 color: richBlack,
                 child: ListTile(
                   leading: Icon(
@@ -135,26 +143,26 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                child: SizedBox(),
-              ),
-              MaterialButton(
-                onPressed: () {},
-                color: richBlack,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.copyright,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    'Copyright',
-                    style: Theme.of(context).textTheme.title.copyWith(
-                          fontSize: 15.0,
-                          fontFamily: pMedium,
-                        ),
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   child: SizedBox(),
+              // ),
+              // MaterialButton(
+              //   onPressed: () {},
+              //   color: richBlack,
+              //   child: ListTile(
+              //     leading: Icon(
+              //       Icons.copyright,
+              //       color: Colors.white,
+              //     ),
+              //     title: Text(
+              //       'Copyright',
+              //       style: Theme.of(context).textTheme.title.copyWith(
+              //             fontSize: 15.0,
+              //             fontFamily: pMedium,
+              //           ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
