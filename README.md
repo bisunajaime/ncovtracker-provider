@@ -1,16 +1,14 @@
-# ncov_tracker
+# NcovEr
+Basic Flutter Application for tracking corona virus, data is fetched/scraped from the website [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/) using Dart's http and html libraries. WARNING: Spaghetti Code
 
-A new Flutter project.
+## UI Images
 
-## Getting Started
+|HOME                |SEARCH           |STATS-1                         |STATS-2 |
+|----------------|-------------------------------|-----------------------------|----|
+<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/home.jpg" width="300" height="400" /> |<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/search_result.jpg" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home.jpg" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home2.jpg" width="300" height="400" />|
 
-This project is a starting point for a Flutter application.
+|WORLD TOTALS| LATEST UPDATES|MAPS|MAPS-INFO|
+|----|----|---|---|
+<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/world_totals.jpg" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/latest_news.jpg" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/maps.jpg" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/maps_info.jpg" width="300" height="400" />|
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
