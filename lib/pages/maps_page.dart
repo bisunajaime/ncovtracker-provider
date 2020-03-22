@@ -8,6 +8,7 @@ import 'package:ncov_tracker/models/location_model.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong/latlong.dart';
+import 'package:ncov_tracker/pages/countrydetails_page.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
 
 class MapsPage extends StatefulWidget {
@@ -79,6 +80,80 @@ class _MapsPageState extends State<MapsPage> {
     super.dispose();
   }
 
+  _flutterMap() {
+    return FlutterMap(
+      key: Key('maps'),
+      mapController: mapController,
+      options: new MapOptions(
+          center: initialPos,
+          zoom: 1.5,
+          minZoom: 1.5,
+          interactive: true,
+          debug: true,
+          onPositionChanged: (pos, b) {
+            setState(() {
+              initialPos = pos.center;
+            });
+          }),
+      layers: [
+        TileLayerOptions(
+          backgroundColor: Color(0xff191a1a),
+          urlTemplate:
+              'https://tile.jawg.io/dark/{z}/{x}/{y}.png?api-key=community',
+          subdomains: ['a', 'b', 'c'],
+        ),
+        MarkerLayerOptions(
+          markers: List.generate(
+            widget.locationData.length,
+            (i) {
+              for (int x = 0; x < locData.length; x++) {
+                if (locData[x].country == widget.locationData[i].country) {
+                  var data = locData[x];
+                  return Marker(
+                    point: LatLng(
+                      double.parse(data.lat),
+                      double.parse(data.long),
+                    ),
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            didTap = true;
+                            initialLocation = widget.locationData[i];
+                            initialPos = LatLng(
+                              double.parse(data.lat),
+                              double.parse(data.long),
+                            );
+                            mapController.move(
+                                LatLng(
+                                  double.parse(data.lat),
+                                  double.parse(data.long),
+                                ),
+                                4.0);
+                          });
+                        },
+                        child: Icon(
+                          Icons.location_on,
+                          color: int.parse(widget.locationData[i].totalCases
+                                      .replaceAll(',', '')) >=
+                                  10
+                              ? Colors.redAccent[100]
+                              : Colors.greenAccent[100],
+                          size: 40.0,
+                        ),
+                      );
+                    },
+                  );
+                }
+              }
+              return Marker();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,81 +171,7 @@ class _MapsPageState extends State<MapsPage> {
                 children: <Widget>[
                   Expanded(
                     flex: 4,
-                    child: FlutterMap(
-                      key: Key('maps'),
-                      mapController: mapController,
-                      options: new MapOptions(
-                          center: initialPos,
-                          zoom: 1.5,
-                          minZoom: 1.5,
-                          interactive: true,
-                          debug: true,
-                          onPositionChanged: (pos, b) {
-                            setState(() {
-                              initialPos = pos.center;
-                            });
-                          }),
-                      layers: [
-                        TileLayerOptions(
-                          backgroundColor: Color(0xff191a1a),
-                          urlTemplate:
-                              'https://tile.jawg.io/dark/{z}/{x}/{y}.png?api-key=community',
-                          subdomains: ['a', 'b', 'c'],
-                        ),
-                        MarkerLayerOptions(
-                          markers: List.generate(
-                            widget.locationData.length,
-                            (i) {
-                              for (int x = 0; x < locData.length; x++) {
-                                if (locData[x].country ==
-                                    widget.locationData[i].country) {
-                                  var data = locData[x];
-                                  return Marker(
-                                    point: LatLng(
-                                      double.parse(data.lat),
-                                      double.parse(data.long),
-                                    ),
-                                    builder: (context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            didTap = true;
-                                            initialLocation =
-                                                widget.locationData[i];
-                                            initialPos = LatLng(
-                                              double.parse(data.lat),
-                                              double.parse(data.long),
-                                            );
-                                            mapController.move(
-                                                LatLng(
-                                                  double.parse(data.lat),
-                                                  double.parse(data.long),
-                                                ),
-                                                4.0);
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.location_on,
-                                          color: int.parse(widget
-                                                      .locationData[i]
-                                                      .totalCases
-                                                      .replaceAll(',', '')) >=
-                                                  10
-                                              ? Colors.redAccent[100]
-                                              : Colors.greenAccent[100],
-                                          size: 40.0,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-                              }
-                              return Marker();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _flutterMap(),
                   ),
                   Expanded(
                     flex: 2,
@@ -205,7 +206,21 @@ class _MapsPageState extends State<MapsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('${initialLocation.country}'),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.location_on,
+                                      color: Colors.redAccent[100],
+                                    ),
+                                    Text(
+                                      '${initialLocation.country}',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 5.0,
                                 ),
@@ -231,25 +246,71 @@ class _MapsPageState extends State<MapsPage> {
                                     DataContainer(
                                       data: initialLocation.totalRecovered,
                                       type: 'Total Recovered',
-                                      dataColor: int.parse(initialLocation
-                                                  .totalRecovered
-                                                  .replaceAll(',', '')) >
-                                              10
+                                      dataColor: initialLocation
+                                                  .totalRecovered ==
+                                              'NONE'
                                           ? Colors.greenAccent[100]
-                                          : Colors.redAccent[100],
+                                          : int.parse(initialLocation
+                                                      .totalRecovered
+                                                      .replaceAll(',', '')) >
+                                                  10
+                                              ? Colors.amberAccent[100]
+                                              : Colors.greenAccent[100],
                                     ),
                                     DataContainer(
                                       data: initialLocation.totalDeaths,
                                       type: 'Total Deaths',
-                                      dataColor: int.parse(initialLocation
-                                                  .totalDeaths
-                                                  .replaceAll(',', '')) >
-                                              10
-                                          ? Colors.redAccent[100]
-                                          : Colors.greenAccent[100],
+                                      dataColor: initialLocation.totalDeaths ==
+                                              'NONE'
+                                          ? Colors.greenAccent[100]
+                                          : int.parse(initialLocation
+                                                      .totalDeaths
+                                                      .replaceAll(',', '')) >
+                                                  10
+                                              ? Colors.redAccent[100]
+                                              : Colors.greenAccent[100],
                                     ),
                                   ],
-                                )
+                                ),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
+                                Expanded(
+                                  child: FlatButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    color: bistre,
+                                    onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CountryDetails(
+                                                  locationModel:
+                                                      initialLocation,
+                                                ))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'More Info',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: pBold,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
                               ],
                             ),
                           ),
