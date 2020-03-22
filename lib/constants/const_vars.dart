@@ -6,12 +6,6 @@ const String pMedium = 'Poppins-Medium';
 const String pRegular = 'Poppins-Regular';
 
 // colors
-const Color lightRed = Color(0xff6B0101);
-
-const Color lightPurple = Color(0xff2C0065);
-const Color lightRed2 = Color(0xff47118B);
-
-const Color darkPurple = Color(0xff1F0046);
 
 const Color richBlack = Color(0xff070305);
 const Color smokyBlack = Color(0xff130d0f);

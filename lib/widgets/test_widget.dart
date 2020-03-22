@@ -198,6 +198,35 @@ class DataWidget extends StatelessWidget {
                 type: 'Active Cases',
               ),
             ],
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: RaisedButton(
+              onPressed: () {},
+              color: bistre,
+              splashColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Learn More',
+                    style: Theme.of(context).textTheme.display1.copyWith(
+                          fontSize: 15.0,
+                          color: Colors.white,
+                          fontFamily: pRegular,
+                        ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),

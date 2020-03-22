@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
 import 'package:ncov_tracker/pages/latest_updates.dart';
+import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           routes: {
             'world_totals': (context) => WorldTotals(),
             'latest_updates': (context) => LatestUpdatesPage(),
+            'maps': (context) => MapsPage(),
           },
           theme: ThemeData(
               scaffoldBackgroundColor: Colors.black,

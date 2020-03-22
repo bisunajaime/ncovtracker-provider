@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, 'maps'),
                 color: richBlack,
                 child: ListTile(
                   leading: Icon(
