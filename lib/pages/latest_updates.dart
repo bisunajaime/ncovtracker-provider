@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
@@ -7,6 +8,11 @@ import 'package:provider/provider.dart';
 class LatestUpdatesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     final latestUpdates = Provider.of<LatestUpdatesData>(context);
     return Scaffold(
       backgroundColor: grayBlue,

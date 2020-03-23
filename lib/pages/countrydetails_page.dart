@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ncov_tracker/models/location_model.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:http/http.dart' as http;
@@ -51,6 +52,11 @@ class _CountryDetailsState extends State<CountryDetails> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     LocationModel locMod = widget.locationModel;
     TextTheme textStyle = Theme.of(context).textTheme;
     final locProv = Provider.of<LocationData>(context);
@@ -63,7 +69,7 @@ class _CountryDetailsState extends State<CountryDetails> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Country Details',
+              '${widget.locationModel.country} Details',
               style: textStyle.title.copyWith(
                 fontSize: 20.0,
               ),
@@ -288,7 +294,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                         ),
                       ),
                       title: ChartTitle(
-                        text: 'Cases Overtime',
+                        text: 'Timeline',
                         textStyle: ChartTextStyle(
                           color: antiFlashWhite,
                           fontFamily: pBold,
@@ -303,8 +309,16 @@ class _CountryDetailsState extends State<CountryDetails> {
                           ),
                         ),
                       ),
+                      legend: Legend(
+                        title: LegendTitle(text: 'Legend'),
+                        isVisible: true,
+                        isResponsive: true,
+                        position: LegendPosition.auto,
+                        backgroundColor: grayBlue,
+                      ),
                       series: <LineSeries<DateData, String>>[
                         LineSeries<DateData, String>(
+                          legendItemText: 'Cases',
                           dataSource: List.generate(
                             locationHistory.casesHistory.keys.toList().length,
                             (i) {
@@ -319,50 +333,9 @@ class _CountryDetailsState extends State<CountryDetails> {
                           color: Colors.orangeAccent,
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: SfCartesianChart(
-                      backgroundColor: gunMetal,
-                      title: ChartTitle(
-                        text: 'Deaths Overtime',
-                        textStyle: ChartTextStyle(
-                          color: antiFlashWhite,
-                          fontFamily: pBold,
                         ),
-                      ),
-                      tooltipBehavior: TooltipBehavior(
-                        activationMode: ActivationMode.doubleTap,
-                        enable: true,
-                        header: 'Deaths',
-                      ),
-                      trackballBehavior: TrackballBehavior(
-                        enable: true,
-                        activationMode: ActivationMode.singleTap,
-                        lineWidth: 2.0,
-                        lineColor: Colors.white,
-                        tooltipSettings: InteractiveTooltip(
-                          textStyle: ChartTextStyle(
-                            color: Colors.black,
-                            fontFamily: pBold,
-                          ),
-                          format: 'point.x : point.y',
-                          borderColor: Colors.redAccent[100],
-                        ),
-                      ),
-                      primaryXAxis: CategoryAxis(
-                        title: AxisTitle(
-                          text: 'Dates',
-                          textStyle: ChartTextStyle(
-                            fontFamily: pBold,
-                            color: antiFlashWhite,
-                          ),
-                        ),
-                      ),
-                      series: <LineSeries<DateData, String>>[
                         LineSeries<DateData, String>(
+                          legendItemText: 'Deaths',
                           dataSource: List.generate(
                             locationHistory.deathsHistory.keys.toList().length,
                             (i) {
@@ -378,49 +351,8 @@ class _CountryDetailsState extends State<CountryDetails> {
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: SfCartesianChart(
-                      backgroundColor: gunMetal,
-                      title: ChartTitle(
-                        text: 'Recovery Overtime',
-                        textStyle: ChartTextStyle(
-                          color: antiFlashWhite,
-                          fontFamily: pBold,
-                        ),
-                      ),
-                      tooltipBehavior: TooltipBehavior(
-                        activationMode: ActivationMode.doubleTap,
-                        enable: true,
-                        header: 'Recovered',
-                      ),
-                      trackballBehavior: TrackballBehavior(
-                        enable: true,
-                        activationMode: ActivationMode.singleTap,
-                        lineWidth: 2.0,
-                        lineColor: Colors.white,
-                        tooltipSettings: InteractiveTooltip(
-                          textStyle: ChartTextStyle(
-                            color: Colors.black,
-                            fontFamily: pBold,
-                          ),
-                          format: 'point.x : point.y',
-                          borderColor: Colors.greenAccent[100],
-                        ),
-                      ),
-                      primaryXAxis: CategoryAxis(
-                        title: AxisTitle(
-                          text: 'Dates',
-                          textStyle: ChartTextStyle(
-                            fontFamily: pBold,
-                            color: antiFlashWhite,
-                          ),
-                        ),
-                      ),
-                      series: <LineSeries<DateData, String>>[
                         LineSeries<DateData, String>(
+                          legendItemText: 'Recovered',
                           dataSource: List.generate(
                             locationHistory.recoveredHistory.keys
                                 .toList()

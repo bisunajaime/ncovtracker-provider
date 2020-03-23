@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
@@ -8,6 +9,9 @@ import 'package:ncov_tracker/constants/const_vars.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     final locData = Provider.of<LocationData>(context);
     return Scaffold(
       backgroundColor: grayBlue,
