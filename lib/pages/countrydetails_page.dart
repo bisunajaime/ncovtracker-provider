@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ncov_tracker/models/location_model.dart';
@@ -62,14 +63,14 @@ class _CountryDetailsState extends State<CountryDetails> {
     final locProv = Provider.of<LocationData>(context);
 
     return Scaffold(
-      backgroundColor: grayBlue,
+      backgroundColor: richBlack,
       appBar: AppBar(
-        backgroundColor: gunMetal,
+        backgroundColor: eerieBlack,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '${widget.locationModel.country} Details',
+              'Country Details',
               style: textStyle.title.copyWith(
                 fontSize: 20.0,
               ),
@@ -79,7 +80,7 @@ class _CountryDetailsState extends State<CountryDetails> {
               style: textStyle.body1.copyWith(
                 fontFamily: pMedium,
                 fontSize: 12.0,
-                color: redPantone,
+                color: deepPuce,
               ),
             ),
           ],
@@ -95,13 +96,16 @@ class _CountryDetailsState extends State<CountryDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircularProgressIndicator(
-                      backgroundColor: gunMetal,
-                      valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                      backgroundColor: russianViolet,
+                      valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                    ),
+                    SizedBox(
+                      height: 5.0,
                     ),
                     Text(
                       'Loading',
                       style: TextStyle(
-                        color: gunMetal,
+                        color: dustStorm,
                       ),
                     ),
                   ],
@@ -272,8 +276,9 @@ class _CountryDetailsState extends State<CountryDetails> {
                     height: 10.0,
                   ),
                   Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
                     child: SfCartesianChart(
-                      backgroundColor: gunMetal,
+                      backgroundColor: eerieBlack,
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.doubleTap,
                         enable: true,
@@ -310,11 +315,20 @@ class _CountryDetailsState extends State<CountryDetails> {
                         ),
                       ),
                       legend: Legend(
-                        title: LegendTitle(text: 'Legend'),
+                        title: LegendTitle(
+                          text: 'Legend',
+                          textStyle: ChartTextStyle(
+                            color: Colors.white,
+                            fontFamily: pBold,
+                          ),
+                        ),
                         isVisible: true,
                         isResponsive: true,
-                        position: LegendPosition.auto,
-                        backgroundColor: grayBlue,
+                        position: LegendPosition.bottom,
+                        backgroundColor: Color(0xff6d607a),
+                        textStyle: ChartTextStyle(
+                          fontFamily: pRegular,
+                        ),
                       ),
                       series: <LineSeries<DateData, String>>[
                         LineSeries<DateData, String>(
@@ -331,23 +345,6 @@ class _CountryDetailsState extends State<CountryDetails> {
                             },
                           ),
                           color: Colors.orangeAccent,
-                          xValueMapper: (DateData date, _) => date.date,
-                          yValueMapper: (DateData data, _) => data.data,
-                        ),
-                        LineSeries<DateData, String>(
-                          legendItemText: 'Deaths',
-                          dataSource: List.generate(
-                            locationHistory.deathsHistory.keys.toList().length,
-                            (i) {
-                              return DateData(
-                                date: locationHistory.deathsHistory.keys
-                                    .toList()[i],
-                                data: locationHistory.deathsHistory.values
-                                    .toList()[i],
-                              );
-                            },
-                          ),
-                          color: Colors.redAccent[100],
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
                         ),
@@ -369,9 +366,47 @@ class _CountryDetailsState extends State<CountryDetails> {
                           color: Colors.greenAccent[100],
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
-                        )
+                        ),
+                        LineSeries<DateData, String>(
+                          legendItemText: 'Deaths',
+                          dataSource: List.generate(
+                            locationHistory.deathsHistory.keys.toList().length,
+                            (i) {
+                              return DateData(
+                                date: locationHistory.deathsHistory.keys
+                                    .toList()[i],
+                                data: locationHistory.deathsHistory.values
+                                    .toList()[i],
+                              );
+                            },
+                          ),
+                          color: Colors.redAccent[100],
+                          xValueMapper: (DateData date, _) => date.date,
+                          yValueMapper: (DateData data, _) => data.data,
+                        ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Center(
+                    child: MediaQuery.of(context).orientation ==
+                            Orientation.landscape
+                        ? Text(
+                            '',
+                            style: textStyle.title.copyWith(
+                              fontFamily: pMedium,
+                              fontSize: 15.0,
+                            ),
+                          )
+                        : Text(
+                            'Rotate Device for Landscape',
+                            style: textStyle.title.copyWith(
+                              fontFamily: pRegular,
+                              fontSize: 15.0,
+                            ),
+                          ),
                   ),
                 ],
               ),

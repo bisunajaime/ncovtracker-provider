@@ -14,9 +14,9 @@ class WorldTotals extends StatelessWidget {
     final locData = Provider.of<LocationData>(context);
 
     return Scaffold(
-      backgroundColor: grayBlue,
+      backgroundColor: eerieBlack,
       appBar: AppBar(
-        backgroundColor: gunMetal,
+        backgroundColor: russianViolet,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +32,7 @@ class WorldTotals extends StatelessWidget {
               '${locData.date}',
               style: Theme.of(context).textTheme.subtitle.copyWith(
                     fontSize: 10.0,
-                    color: Colors.redAccent[100],
+                    color: dustStorm,
                     fontFamily: pMedium,
                   ),
             ),
@@ -44,7 +44,7 @@ class WorldTotals extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: grayBlue,
+          color: richBlack,
         ),
         child: ListView(
           children: <Widget>[

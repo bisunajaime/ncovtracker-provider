@@ -15,9 +15,9 @@ class LatestUpdatesPage extends StatelessWidget {
     ]);
     final latestUpdates = Provider.of<LatestUpdatesData>(context);
     return Scaffold(
-      backgroundColor: grayBlue,
+      backgroundColor: eerieBlack,
       appBar: AppBar(
-        backgroundColor: gunMetal,
+        backgroundColor: russianViolet,
         centerTitle: true,
         title: Text(
           'Latest Updates',
@@ -41,8 +41,8 @@ class LatestUpdatesPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircularProgressIndicator(
-                    backgroundColor: gunMetal,
-                    valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                    backgroundColor: russianViolet,
+                    valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
                   ),
                   SizedBox(
                     height: 5.0,
@@ -50,7 +50,7 @@ class LatestUpdatesPage extends StatelessWidget {
                   Text(
                     'Loading',
                     style: TextStyle(
-                      color: gunMetal,
+                      color: dustStorm,
                     ),
                   ),
                 ],
@@ -75,23 +75,27 @@ class LatestUpdatesPage extends StatelessWidget {
                         controller: latestUpdates.controller,
                         onChanged: latestUpdates.search,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                           suffixIcon: GestureDetector(
                             child: Icon(
                               Icons.backspace,
                               color: Colors.white,
+                              size: 20.0,
                             ),
                             onTap: latestUpdates.clearTxt,
                           ),
                           prefixIcon: Icon(
                             Icons.search,
                             color: Colors.white,
+                            size: 20.0,
                           ),
                           filled: true,
-                          fillColor: gunMetal,
+                          fillColor: Color(0xff9c7c8b),
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
                             color: Colors.white,
+                            fontSize: 15,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -178,8 +182,8 @@ class LatestUpdatesPage extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
                                                   colors: [
-                                                    mediumAppleRed,
-                                                    gunMetal,
+                                                    deepPuce,
+                                                    russianViolet,
                                                   ],
                                                 ),
                                                 borderRadius:

@@ -163,7 +163,7 @@ class _MapsPageState extends State<MapsPage> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      backgroundColor: grayBlue,
+      backgroundColor: eerieBlack,
       appBar: AppBar(
         title: Text(
           'Maps',
@@ -172,15 +172,29 @@ class _MapsPageState extends State<MapsPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: gunMetal,
+        backgroundColor: russianViolet,
       ),
       body: Container(
-        color: grayBlue,
+        color: eerieBlack,
         child: _loading
             ? Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: gunMetal,
-                  valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      backgroundColor: russianViolet,
+                      valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Loading',
+                      style: TextStyle(
+                        color: dustStorm,
+                      ),
+                    ),
+                  ],
                 ),
               )
             : Column(
@@ -194,7 +208,7 @@ class _MapsPageState extends State<MapsPage> {
                     child: !didTap
                         ? Container(
                             width: double.infinity,
-                            color: gunMetal,
+                            color: eerieBlack,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -218,7 +232,7 @@ class _MapsPageState extends State<MapsPage> {
                           )
                         : Container(
                             width: double.infinity,
-                            color: grayBlue,
+                            color: russianViolet,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 5.0),
                             child: Column(
@@ -273,8 +287,8 @@ class _MapsPageState extends State<MapsPage> {
                                                       .totalRecovered
                                                       .replaceAll(',', '')) >
                                                   10
-                                              ? Colors.amberAccent[100]
-                                              : Colors.greenAccent[100],
+                                              ? Colors.greenAccent[100]
+                                              : Colors.redAccent[100],
                                     ),
                                     DataContainer(
                                       data: initialLocation.totalDeaths,
@@ -299,7 +313,7 @@ class _MapsPageState extends State<MapsPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    color: mediumAppleRed,
+                                    color: deepPuce,
                                     onPressed: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(

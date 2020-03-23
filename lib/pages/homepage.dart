@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
     ]);
     final locData = Provider.of<LocationData>(context);
     return Scaffold(
-      backgroundColor: grayBlue,
+      backgroundColor: eerieBlack,
       appBar: AppBar(
-        backgroundColor: gunMetal,
+        backgroundColor: russianViolet,
         title: Column(
           children: <Widget>[
             Text(
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12.0,
                 fontFamily: pMedium,
-                color: redPantone,
+                color: dustStorm,
               ),
             )
           ],
@@ -39,14 +39,14 @@ class HomePage extends StatelessWidget {
       ),
       drawer: Drawer(
         child: Container(
-          color: grayBlue,
+          color: eerieBlack,
           child: Column(
             children: <Widget>[
               Container(
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: gunMetal,
+                  color: eerieBlack,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                       '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
-                            color: redPantone,
+                            color: deepPuce,
                             fontFamily: pMedium,
                           ),
                     ),
@@ -83,11 +83,19 @@ class HomePage extends StatelessWidget {
                     ? null
                     : Navigator.pushNamed(context, 'world_totals'),
                 color: gunMetal,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
                 child: ListTile(
-                  leading: Icon(
-                    Icons.insert_chart,
-                    color: Colors.orangeAccent[100],
-                  ),
+                  leading: locData.loading
+                      ? CircularProgressIndicator(
+                          backgroundColor: russianViolet,
+                          valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                        )
+                      : Icon(
+                          Icons.insert_chart,
+                          color: Colors.orangeAccent[100],
+                        ),
                   title: Text(
                     '${locData.loading ? 'Loading ' : ''}World Totals',
                     style: Theme.of(context).textTheme.title.copyWith(
@@ -100,6 +108,9 @@ class HomePage extends StatelessWidget {
               MaterialButton(
                 onPressed: () => Navigator.pushNamed(context, 'latest_updates'),
                 color: gunMetal,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
                 child: ListTile(
                   leading: Icon(
                     Icons.update,
@@ -123,6 +134,9 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
                 color: gunMetal,
                 child: ListTile(
                   leading: Icon(
@@ -142,29 +156,33 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: locData.loadData,
-        backgroundColor: grayBlue,
-        child: Icon(
-          Icons.refresh,
-          color: gunMetal,
-        ),
-      ),
+      floatingActionButton: locData.loading
+          ? null
+          : FloatingActionButton(
+              onPressed: locData.loadData,
+              backgroundColor: dustStorm,
+              child: Icon(
+                Icons.refresh,
+                color: gunMetal,
+              ),
+            ),
       body: locData.loading
           ? Center(
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircularProgressIndicator(
-                  backgroundColor: gunMetal,
-                  valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                  backgroundColor: russianViolet,
+                  valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
                 Text(
                   'Loading',
-                  style: TextStyle(color: gunMetal),
+                  style: TextStyle(
+                    color: dustStorm,
+                  ),
                 ),
               ],
             ))
@@ -182,23 +200,29 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(
                           color: antiFlashWhite,
                           fontFamily: pMedium,
+                          fontSize: 15.0,
                         ),
                         controller: locData.controller,
                         onChanged: locData.search,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                          ),
                           suffixIcon: GestureDetector(
                             child: Icon(
                               Icons.backspace,
                               color: antiFlashWhite,
+                              size: 20.0,
                             ),
                             onTap: locData.clearTxt,
                           ),
                           prefixIcon: Icon(
                             Icons.search,
                             color: antiFlashWhite,
+                            size: 20,
                           ),
                           filled: true,
-                          fillColor: gunMetal,
+                          fillColor: Color(0xff9c7c8b),
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,

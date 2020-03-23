@@ -16,7 +16,7 @@ class DataContainer extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
-          color: gunMetal,
+          color: eerieBlack,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(

@@ -61,11 +61,11 @@ class DataWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
-            gunMetal,
-            grayBlue,
+            russianViolet,
+            eerieBlack,
           ],
         ),
         boxShadow: [
@@ -214,7 +214,7 @@ class DataWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              color: mediumAppleRed,
+              color: deepPuce,
               splashColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
