@@ -15,7 +15,7 @@ class LatestUpdatesPage extends StatelessWidget {
     ]);
     final latestUpdates = Provider.of<LatestUpdatesData>(context);
     return Scaffold(
-      backgroundColor: eerieBlack,
+      backgroundColor: richBlack,
       appBar: AppBar(
         backgroundColor: russianViolet,
         centerTitle: true,
