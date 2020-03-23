@@ -14,8 +14,9 @@ class WorldTotals extends StatelessWidget {
     final locData = Provider.of<LocationData>(context);
 
     return Scaffold(
+      backgroundColor: grayBlue,
       appBar: AppBar(
-        backgroundColor: eerieBlack,
+        backgroundColor: gunMetal,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +44,7 @@ class WorldTotals extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xff0b0408),
+          color: grayBlue,
         ),
         child: ListView(
           children: <Widget>[

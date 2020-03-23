@@ -61,10 +61,6 @@ class LatestUpdatesData extends ChangeNotifier {
     return _latestUpdatesModel;
   }
 
-  _setLatestUpdatesModel(List<LatestUpdatesModel> lum) {
-    _latestUpdatesModel = lum;
-  }
-
   String _filterText(String text) {
     String newText = text
         .replaceAll('<strong>', '')

@@ -9,9 +9,9 @@ class LatestUpdatesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final latestUpdates = Provider.of<LatestUpdatesData>(context);
     return Scaffold(
-      backgroundColor: richBlack,
+      backgroundColor: grayBlue,
       appBar: AppBar(
-        backgroundColor: eerieBlack,
+        backgroundColor: gunMetal,
         centerTitle: true,
         title: Text(
           'Latest Updates',
@@ -22,7 +22,7 @@ class LatestUpdatesPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: oldBurgundy,
+        backgroundColor: gunMetal,
         onPressed: latestUpdates.loadLatestUpdates,
         child: Icon(
           Icons.refresh,
@@ -34,12 +34,18 @@ class LatestUpdatesPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    backgroundColor: gunMetal,
+                    valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                  ),
                   SizedBox(
                     height: 5.0,
                   ),
                   Text(
                     'Loading',
+                    style: TextStyle(
+                      color: gunMetal,
+                    ),
                   ),
                 ],
               ),
@@ -75,7 +81,7 @@ class LatestUpdatesPage extends StatelessWidget {
                             color: Colors.white,
                           ),
                           filled: true,
-                          fillColor: eerieBlack,
+                          fillColor: gunMetal,
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
@@ -133,7 +139,7 @@ class LatestUpdatesPage extends StatelessWidget {
                                     vertical: 10.0,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: eerieBlack,
+                                    color: gunMetal,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   child: Text(
@@ -142,10 +148,9 @@ class LatestUpdatesPage extends StatelessWidget {
                                         .textTheme
                                         .title
                                         .copyWith(
-                                      fontFamily: pMedium,
-                                      color: Colors.white,
-                                      shadows: [],
-                                    ),
+                                          fontFamily: pMedium,
+                                          color: antiFlashWhite,
+                                        ),
                                   ),
                                 ),
                                 Column(
@@ -167,8 +172,8 @@ class LatestUpdatesPage extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
                                                   colors: [
-                                                    oldBurgundy,
-                                                    bistre,
+                                                    mediumAppleRed,
+                                                    gunMetal,
                                                   ],
                                                 ),
                                                 borderRadius:

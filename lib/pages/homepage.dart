@@ -10,9 +10,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final locData = Provider.of<LocationData>(context);
     return Scaffold(
-      backgroundColor: smokyBlack,
+      backgroundColor: grayBlue,
       appBar: AppBar(
-        backgroundColor: eerieBlack,
+        backgroundColor: gunMetal,
         title: Column(
           children: <Widget>[
             Text(
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12.0,
                 fontFamily: pMedium,
-                color: Color(0xffDAACAC),
+                color: redPantone,
               ),
             )
           ],
@@ -35,21 +35,14 @@ class HomePage extends StatelessWidget {
       ),
       drawer: Drawer(
         child: Container(
-          color: eerieBlack,
+          color: grayBlue,
           child: Column(
             children: <Widget>[
               Container(
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      smokyBlack,
-                      richBlack,
-                    ],
-                  ),
+                  color: gunMetal,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,13 +53,11 @@ class HomePage extends StatelessWidget {
                             fontSize: 30.0,
                           ),
                     ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
                     Text(
                       '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
+                            color: redPantone,
                             fontFamily: pMedium,
                           ),
                     ),
@@ -76,8 +67,8 @@ class HomePage extends StatelessWidget {
                     Text(
                       '${locData.date}',
                       style: Theme.of(context).textTheme.body2.copyWith(
-                            color: Colors.amberAccent,
-                            fontFamily: pMedium,
+                            color: antiFlashWhite,
+                            fontFamily: pBold,
                           ),
                     ),
                   ],
@@ -87,7 +78,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () => locData.loading
                     ? null
                     : Navigator.pushNamed(context, 'world_totals'),
-                color: richBlack,
+                color: gunMetal,
                 child: ListTile(
                   leading: Icon(
                     Icons.insert_chart,
@@ -104,7 +95,7 @@ class HomePage extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () => Navigator.pushNamed(context, 'latest_updates'),
-                color: richBlack,
+                color: gunMetal,
                 child: ListTile(
                   leading: Icon(
                     Icons.update,
@@ -128,7 +119,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                color: richBlack,
+                color: gunMetal,
                 child: ListTile(
                   leading: Icon(
                     Icons.map,
@@ -143,34 +134,17 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Expanded(
-              //   child: SizedBox(),
-              // ),
-              // MaterialButton(
-              //   onPressed: () {},
-              //   color: richBlack,
-              //   child: ListTile(
-              //     leading: Icon(
-              //       Icons.copyright,
-              //       color: Colors.white,
-              //     ),
-              //     title: Text(
-              //       'Copyright',
-              //       style: Theme.of(context).textTheme.title.copyWith(
-              //             fontSize: 15.0,
-              //             fontFamily: pMedium,
-              //           ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: locData.loadData,
-        backgroundColor: richBlack,
-        child: Icon(Icons.refresh),
+        backgroundColor: grayBlue,
+        child: Icon(
+          Icons.refresh,
+          color: gunMetal,
+        ),
       ),
       body: locData.loading
           ? Center(
@@ -178,14 +152,16 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircularProgressIndicator(
-                  backgroundColor: Color(0xffC04848),
-                  valueColor:
-                      new AlwaysStoppedAnimation<Color>(Color(0xff3E0000)),
+                  backgroundColor: gunMetal,
+                  valueColor: AlwaysStoppedAnimation<Color>(redPantone),
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
-                Text('Loading'),
+                Text(
+                  'Loading',
+                  style: TextStyle(color: gunMetal),
+                ),
               ],
             ))
           : Column(
@@ -200,7 +176,7 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       TextField(
                         style: TextStyle(
-                          color: Colors.white,
+                          color: antiFlashWhite,
                           fontFamily: pMedium,
                         ),
                         controller: locData.controller,
@@ -209,20 +185,20 @@ class HomePage extends StatelessWidget {
                           suffixIcon: GestureDetector(
                             child: Icon(
                               Icons.backspace,
-                              color: Colors.white,
+                              color: antiFlashWhite,
                             ),
                             onTap: locData.clearTxt,
                           ),
                           prefixIcon: Icon(
                             Icons.search,
-                            color: Colors.white,
+                            color: antiFlashWhite,
                           ),
                           filled: true,
-                          fillColor: eerieBlack,
+                          fillColor: gunMetal,
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
-                            color: Colors.white,
+                            color: antiFlashWhite,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(

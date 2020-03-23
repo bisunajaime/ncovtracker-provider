@@ -1,14 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ncov_tracker/models/location_model.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
-import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -59,9 +56,9 @@ class _CountryDetailsState extends State<CountryDetails> {
     final locProv = Provider.of<LocationData>(context);
 
     return Scaffold(
-      backgroundColor: smokyBlack,
+      backgroundColor: grayBlue,
       appBar: AppBar(
-        backgroundColor: eerieBlack,
+        backgroundColor: gunMetal,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -75,8 +72,8 @@ class _CountryDetailsState extends State<CountryDetails> {
               '${locProv.date}',
               style: textStyle.body1.copyWith(
                 fontFamily: pMedium,
-                fontSize: 10.0,
-                color: Colors.redAccent[100],
+                fontSize: 12.0,
+                color: redPantone,
               ),
             ),
           ],
@@ -91,8 +88,16 @@ class _CountryDetailsState extends State<CountryDetails> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(),
-                    Text('Loading'),
+                    CircularProgressIndicator(
+                      backgroundColor: gunMetal,
+                      valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                    ),
+                    Text(
+                      'Loading',
+                      style: TextStyle(
+                        color: gunMetal,
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -124,7 +129,8 @@ class _CountryDetailsState extends State<CountryDetails> {
                                 '${locMod.country}',
                                 overflow: TextOverflow.ellipsis,
                                 style: textStyle.title.copyWith(
-                                  fontFamily: pMedium,
+                                  fontFamily: pBold,
+                                  color: antiFlashWhite,
                                 ),
                               ),
                             ),
@@ -185,7 +191,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                                   : int.parse(widget.locationModel.totalDeaths
                                               .replaceAll(',', '')) >
                                           10
-                                      ? Colors.amberAccent[100]
+                                      ? Colors.purpleAccent[100]
                                       : Colors.greenAccent[100],
                             ),
                             DataContainer(
@@ -197,7 +203,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                                   : int.parse(widget.locationModel.activeCases
                                               .replaceAll(',', '')) >
                                           10
-                                      ? Colors.redAccent[100]
+                                      ? Colors.purpleAccent[100]
                                       : Colors.greenAccent[100],
                             ),
                           ],
@@ -256,21 +262,12 @@ class _CountryDetailsState extends State<CountryDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 5.0,
-                    ),
-                    child: Text(
-                      'Cases overtime',
-                      style: textStyle.title.copyWith(
-                        fontSize: 15.0,
-                        fontFamily: pMedium,
-                      ),
-                    ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                   Container(
                     child: SfCartesianChart(
+                      backgroundColor: gunMetal,
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.doubleTap,
                         enable: true,
@@ -290,9 +287,20 @@ class _CountryDetailsState extends State<CountryDetails> {
                           borderColor: Colors.orange,
                         ),
                       ),
+                      title: ChartTitle(
+                        text: 'Cases Overtime',
+                        textStyle: ChartTextStyle(
+                          color: antiFlashWhite,
+                          fontFamily: pBold,
+                        ),
+                      ),
                       primaryXAxis: CategoryAxis(
                         title: AxisTitle(
                           text: 'Dates',
+                          textStyle: ChartTextStyle(
+                            fontFamily: pBold,
+                            color: antiFlashWhite,
+                          ),
                         ),
                       ),
                       series: <LineSeries<DateData, String>>[
@@ -315,22 +323,16 @@ class _CountryDetailsState extends State<CountryDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 5.0,
-                    ),
-                    child: Text(
-                      'Deaths overtime',
-                      style: textStyle.title.copyWith(
-                        fontSize: 15.0,
-                        fontFamily: pMedium,
-                      ),
-                    ),
-                  ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: SfCartesianChart(
+                      backgroundColor: gunMetal,
+                      title: ChartTitle(
+                        text: 'Deaths Overtime',
+                        textStyle: ChartTextStyle(
+                          color: antiFlashWhite,
+                          fontFamily: pBold,
+                        ),
+                      ),
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.doubleTap,
                         enable: true,
@@ -353,6 +355,10 @@ class _CountryDetailsState extends State<CountryDetails> {
                       primaryXAxis: CategoryAxis(
                         title: AxisTitle(
                           text: 'Dates',
+                          textStyle: ChartTextStyle(
+                            fontFamily: pBold,
+                            color: antiFlashWhite,
+                          ),
                         ),
                       ),
                       series: <LineSeries<DateData, String>>[
@@ -375,22 +381,16 @@ class _CountryDetailsState extends State<CountryDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 5.0,
-                    ),
-                    child: Text(
-                      'Recovery overtime',
-                      style: textStyle.title.copyWith(
-                        fontSize: 15.0,
-                        fontFamily: pMedium,
-                      ),
-                    ),
-                  ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: SfCartesianChart(
+                      backgroundColor: gunMetal,
+                      title: ChartTitle(
+                        text: 'Recovery Overtime',
+                        textStyle: ChartTextStyle(
+                          color: antiFlashWhite,
+                          fontFamily: pBold,
+                        ),
+                      ),
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.doubleTap,
                         enable: true,
@@ -413,8 +413,11 @@ class _CountryDetailsState extends State<CountryDetails> {
                       primaryXAxis: CategoryAxis(
                         title: AxisTitle(
                           text: 'Dates',
+                          textStyle: ChartTextStyle(
+                            fontFamily: pBold,
+                            color: antiFlashWhite,
+                          ),
                         ),
-                        arrangeByIndex: true,
                       ),
                       series: <LineSeries<DateData, String>>[
                         LineSeries<DateData, String>(

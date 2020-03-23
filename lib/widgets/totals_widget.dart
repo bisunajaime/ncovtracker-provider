@@ -34,14 +34,7 @@ class TotalsWidget extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.circular(5),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              smokyBlack,
-              eerieBlack,
-            ],
-          ),
+          color: gunMetal,
         ),
         child: Column(
           children: <Widget>[

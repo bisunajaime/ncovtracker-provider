@@ -5,7 +5,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:ncov_tracker/models/location_data_model.dart';
 import 'package:ncov_tracker/models/location_model.dart';
-import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong/latlong.dart';
 import 'package:ncov_tracker/pages/countrydetails_page.dart';
@@ -160,16 +159,26 @@ class _MapsPageState extends State<MapsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: smokyBlack,
+      backgroundColor: grayBlue,
       appBar: AppBar(
-        title: Text('Maps'),
+        title: Text(
+          'Maps',
+          style: TextStyle(
+            fontFamily: pBold,
+          ),
+        ),
         centerTitle: true,
-        backgroundColor: eerieBlack,
+        backgroundColor: gunMetal,
       ),
       body: Container(
-        color: Color(0xff343332),
+        color: grayBlue,
         child: _loading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: gunMetal,
+                  valueColor: AlwaysStoppedAnimation<Color>(redPantone),
+                ),
+              )
             : Column(
                 children: <Widget>[
                   Expanded(
@@ -180,6 +189,8 @@ class _MapsPageState extends State<MapsPage> {
                     flex: 2,
                     child: !didTap
                         ? Container(
+                            width: double.infinity,
+                            color: gunMetal,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -203,7 +214,7 @@ class _MapsPageState extends State<MapsPage> {
                           )
                         : Container(
                             width: double.infinity,
-                            color: smokyBlack,
+                            color: grayBlue,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 5.0),
                             child: Column(
@@ -220,6 +231,7 @@ class _MapsPageState extends State<MapsPage> {
                                       '${initialLocation.country}',
                                       style: TextStyle(
                                         fontSize: 20.0,
+                                        color: antiFlashWhite,
                                       ),
                                     ),
                                   ],
@@ -283,7 +295,7 @@ class _MapsPageState extends State<MapsPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    color: bistre,
+                                    color: mediumAppleRed,
                                     onPressed: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(

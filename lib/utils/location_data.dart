@@ -239,7 +239,6 @@ class LocationData extends ChangeNotifier {
     _activeCasesList.clear();
     _seriousCriticalList.clear();
     _locationList.clear();
-    _controller.clear();
     notifyListeners();
   }
 

@@ -23,12 +23,14 @@ class TestWidget extends StatelessWidget {
                       model.searchTxt.trim().length == 0
                   ? DataWidget(
                       loc: loc,
+                      pos: i + 1,
                     )
                   : loc.country
                           .toLowerCase()
                           .contains(model.searchTxt.toLowerCase())
                       ? DataWidget(
                           loc: loc,
+                          pos: i + 1,
                         )
                       : Container();
             },
@@ -41,8 +43,9 @@ class TestWidget extends StatelessWidget {
 
 class DataWidget extends StatelessWidget {
   final LocationModel loc;
+  final int pos;
 
-  DataWidget({this.loc});
+  DataWidget({this.loc, this.pos});
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +61,11 @@ class DataWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: [
-            eerieBlack,
-            richBlack,
+            gunMetal,
+            grayBlue,
           ],
         ),
         boxShadow: [
@@ -83,7 +86,7 @@ class DataWidget extends StatelessWidget {
                     Icon(
                       Icons.location_on,
                       color: int.parse(loc.totalCases.replaceAll(',', '')) > 10
-                          ? Colors.redAccent[100]
+                          ? Colors.red
                           : Colors.greenAccent[100],
                     ),
                     Text(
@@ -141,7 +144,7 @@ class DataWidget extends StatelessWidget {
                 dataColor: loc.totalDeaths == 'NONE'
                     ? Colors.greenAccent[100]
                     : int.parse(loc.totalDeaths.replaceAll(',', '')) > 10
-                        ? Colors.amberAccent[100]
+                        ? Colors.purpleAccent[100]
                         : Colors.greenAccent[100],
                 type: 'Total Deaths',
               ),
@@ -211,7 +214,7 @@ class DataWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              color: bistre,
+              color: mediumAppleRed,
               splashColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
@@ -220,12 +223,15 @@ class DataWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Learn More',
+                    'More info',
                     style: Theme.of(context).textTheme.display1.copyWith(
                           fontSize: 15.0,
                           color: Colors.white,
-                          fontFamily: pRegular,
+                          fontFamily: pBold,
                         ),
+                  ),
+                  SizedBox(
+                    width: 5.0,
                   ),
                   Icon(
                     Icons.arrow_forward,
