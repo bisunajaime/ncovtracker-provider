@@ -286,6 +286,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                             color: Colors.black,
                             fontFamily: pBold,
                           ),
+                          format: 'point.x : point.y',
                           borderColor: Colors.orange,
                         ),
                       ),
@@ -307,7 +308,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                               );
                             },
                           ),
-                          color: Colors.orange,
+                          color: Colors.orangeAccent,
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
                         )
@@ -345,6 +346,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                             color: Colors.black,
                             fontFamily: pBold,
                           ),
+                          format: 'point.x : point.y',
                           borderColor: Colors.redAccent[100],
                         ),
                       ),
@@ -369,7 +371,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                           color: Colors.redAccent[100],
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -404,6 +406,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                             color: Colors.black,
                             fontFamily: pBold,
                           ),
+                          format: 'point.x : point.y',
                           borderColor: Colors.greenAccent[100],
                         ),
                       ),

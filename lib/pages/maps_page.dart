@@ -50,6 +50,14 @@ class _MapsPageState extends State<MapsPage> {
       locData.add(LocationDataModel.fromJson(data));
     }
     client.close();
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  loadData() {
+    loadLocations();
+
     Future<MapController> mc = mapController.onReady;
     mc.whenComplete(() {
       print('complete');
@@ -59,16 +67,13 @@ class _MapsPageState extends State<MapsPage> {
         _loading = false;
       });
     });
-    setState(() {
-      _loading = false;
-    });
   }
 
   @override
   void initState() {
     // TODO: fetch data
-    loadLocations();
     super.initState();
+    loadData();
   }
 
   @override
@@ -82,7 +87,7 @@ class _MapsPageState extends State<MapsPage> {
 
   _flutterMap() {
     return FlutterMap(
-      key: Key('maps'),
+      key: Key('mapss'),
       mapController: mapController,
       options: new MapOptions(
           center: initialPos,
@@ -91,9 +96,7 @@ class _MapsPageState extends State<MapsPage> {
           interactive: true,
           debug: true,
           onPositionChanged: (pos, b) {
-            setState(() {
-              initialPos = pos.center;
-            });
+            initialPos = pos.center;
           }),
       layers: [
         TileLayerOptions(
