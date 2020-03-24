@@ -8,6 +8,8 @@ import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:http/http.dart' as http;
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -23,6 +25,9 @@ class CountryDetails extends StatefulWidget {
 class _CountryDetailsState extends State<CountryDetails> {
   bool loading = true;
   LocationHistory locationHistory;
+  double deathRatio = 0.0;
+  double recoverRatio = 0.0;
+  double activeRatio = 0.0;
 
   // TODO: Future function getting the data from API
   Future<void> fetchData(String country) async {
@@ -38,10 +43,32 @@ class _CountryDetailsState extends State<CountryDetails> {
     var data = response.body;
     var jsonData = jsonDecode(data);
 
+    double totalCases =
+        double.parse(widget.locationModel.totalCases.replaceAll(',', ''));
+
+    double totalDeaths = widget.locationModel.totalDeaths == 'NONE'
+        ? 0.0
+        : double.parse(widget.locationModel.totalDeaths.replaceAll(',', ''));
+    double totalRecovery = widget.locationModel.totalRecovered == 'NONE'
+        ? 0.0
+        : double.parse(widget.locationModel.totalRecovered.replaceAll(',', ''));
+    double totalActive = widget.locationModel.activeCases == 'NONE'
+        ? 0.0
+        : double.parse(widget.locationModel.activeCases.replaceAll(',', ''));
+    print(totalCases);
+    print(totalDeaths);
+    print(totalRecovery);
+    print(totalActive);
+
     setState(() {
       locationHistory = LocationHistory.fromJson(jsonData);
       loading = false;
+      deathRatio = totalDeaths / totalCases;
+      recoverRatio = totalRecovery / totalCases;
+      activeRatio = totalActive / totalCases;
     });
+    print(deathRatio);
+    print(recoverRatio);
   }
 
   @override
@@ -268,7 +295,137 @@ class _CountryDetailsState extends State<CountryDetails> {
                                       : Colors.greenAccent[100],
                             ),
                           ],
-                        )
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 180,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      children: <Widget>[
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                'Deaths Ratio',
+                                style: TextStyle(
+                                  fontFamily: pMedium,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                            ),
+                            CircularPercentIndicator(
+                              radius: 130.0,
+                              animation: true,
+                              animationDuration: 1200,
+                              lineWidth: 15.0,
+                              percent: deathRatio,
+                              center: new Text(
+                                "${(deathRatio * 100).round()}%",
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              backgroundColor: eerieBlack,
+                              linearGradient: LinearGradient(
+                                colors: [
+                                  Colors.orangeAccent,
+                                  Colors.redAccent,
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                'Recovery Ratio',
+                                style: TextStyle(
+                                  fontFamily: pMedium,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                            ),
+                            CircularPercentIndicator(
+                              radius: 130.0,
+                              animation: true,
+                              animationDuration: 1200,
+                              lineWidth: 15.0,
+                              percent: recoverRatio,
+                              center: new Text(
+                                "${(recoverRatio * 100).round()}%",
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              backgroundColor: eerieBlack,
+                              linearGradient: LinearGradient(
+                                colors: [
+                                  Colors.blueAccent,
+                                  Colors.greenAccent,
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                'Active Ratio',
+                                style: TextStyle(
+                                  fontFamily: pMedium,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                            ),
+                            CircularPercentIndicator(
+                              radius: 130.0,
+                              animation: true,
+                              animationDuration: 1200,
+                              lineWidth: 15.0,
+                              percent: activeRatio,
+                              center: new Text(
+                                "${(activeRatio * 100).round()}%",
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              backgroundColor: eerieBlack,
+                              linearGradient: LinearGradient(
+                                colors: [
+                                  Colors.purpleAccent,
+                                  Colors.indigoAccent,
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -407,6 +564,9 @@ class _CountryDetailsState extends State<CountryDetails> {
                               fontSize: 15.0,
                             ),
                           ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                 ],
               ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
+import 'package:ncov_tracker/models/more_results.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/totals_widget.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class WorldTotals extends StatelessWidget {
@@ -47,6 +50,7 @@ class WorldTotals extends StatelessWidget {
           color: richBlack,
         ),
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: <Widget>[
             Row(
               children: <Widget>[
@@ -119,8 +123,187 @@ class WorldTotals extends StatelessWidget {
                 ),
               ],
             ),
+            RatioWidget(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class RatioWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<LocationData>(context);
+
+    double deathRatio =
+        double.parse(model.moreResults.totalDeaths.replaceAll(',', '')) /
+            double.parse(model.moreResults.totalCases.replaceAll(',', ''));
+    double recoverRatio =
+        double.parse(model.moreResults.totalRecovered.replaceAll(',', '')) /
+            double.parse(model.moreResults.totalCases.replaceAll(',', ''));
+    double activeRatio =
+        double.parse(model.moreResults.totalActiveCases.replaceAll(',', '')) /
+            double.parse(model.moreResults.totalCases.replaceAll(',', ''));
+    double mildRatio =
+        double.parse(model.moreResults.totalMild.replaceAll(',', '')) /
+            double.parse(model.moreResults.totalCases.replaceAll(',', ''));
+
+    return Container(
+      height: 200,
+      width: double.infinity,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  'Deaths Ratio',
+                  style: TextStyle(
+                    fontFamily: pMedium,
+                  ),
+                ),
+              ),
+              CircularPercentIndicator(
+                radius: 130.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: deathRatio,
+                center: new Text(
+                  "${(deathRatio * 100).round()}%",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                backgroundColor: eerieBlack,
+                linearGradient: LinearGradient(
+                  colors: [
+                    Colors.orangeAccent,
+                    Colors.redAccent,
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  'Recovery Ratio',
+                  style: TextStyle(
+                    fontFamily: pMedium,
+                  ),
+                ),
+              ),
+              CircularPercentIndicator(
+                radius: 130.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: recoverRatio,
+                center: new Text(
+                  "${(recoverRatio * 100).round()}%",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                backgroundColor: eerieBlack,
+                linearGradient: LinearGradient(
+                  colors: [
+                    Colors.blueAccent,
+                    Colors.greenAccent,
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  'Active Ratio',
+                  style: TextStyle(
+                    fontFamily: pMedium,
+                  ),
+                ),
+              ),
+              CircularPercentIndicator(
+                radius: 130.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: activeRatio,
+                center: new Text(
+                  "${(activeRatio * 100).round()}%",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                backgroundColor: eerieBlack,
+                linearGradient: LinearGradient(
+                  colors: [
+                    Colors.amberAccent,
+                    Colors.orangeAccent,
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  'Mild Ratio',
+                  style: TextStyle(
+                    fontFamily: pMedium,
+                  ),
+                ),
+              ),
+              CircularPercentIndicator(
+                radius: 130.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: mildRatio,
+                center: new Text(
+                  "${(mildRatio * 100).round()}%",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                backgroundColor: eerieBlack,
+                linearGradient: LinearGradient(
+                  colors: [
+                    Colors.purpleAccent,
+                    Colors.indigoAccent,
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 10,
+          ),
+        ],
       ),
     );
   }
