@@ -5,7 +5,7 @@ Basic Flutter Application for tracking corona virus, data is fetched/scraped fro
 
 |HOME                |SEARCH           |STATS-1                         |STATS-2 |
 |----------------|-------------------------------|-----------------------------|----|
-<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/home.png" width="300" height="400" /> |<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/search_result.png" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home.png" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home2.png" width="300" height="400" />|
+<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/home.png" width="300" height="400" /> |<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/search_result.png" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home1.png" width="300" height="400" />|<img src="https://github.com/jose-bamboo/ncovtracker-provider/blob/master/github-images/stats_from_home2.png" width="300" height="400" />|
 
 |WORLD TOTALS| LATEST UPDATES|MAPS|MAPS-INFO|
 |----|----|---|---|
