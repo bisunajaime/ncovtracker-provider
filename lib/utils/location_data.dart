@@ -138,7 +138,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalCases(int i) {
-    if (i % 9 == 0) {
+    if (i % 10 == 0) {
       if (_totalCases[i].innerHtml.contains('<a')) {
         _countriesList.add(_totalCases[i].querySelector('a').innerHtml.trim());
       } else if (_totalCases[i].innerHtml.contains('<span')) {
@@ -151,13 +151,13 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalCasesList(int i) {
-    if (i % 9 == 1) {
+    if (i % 10 == 1) {
       _totalCasesList.add(_totalCases[i].innerHtml.trim());
     }
   }
 
   void _addNewCasesList(int i) {
-    if (i % 9 == 2) {
+    if (i % 10 == 2) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -167,7 +167,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalDeathsList(int i) {
-    if (i % 9 == 3) {
+    if (i % 10 == 3) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -177,7 +177,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addNewDeathsList(int i) {
-    if (i % 9 == 4) {
+    if (i % 10 == 4) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -187,7 +187,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalRecoveredList(int i) {
-    if (i % 9 == 5) {
+    if (i % 10 == 5) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalRecoveredList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -197,7 +197,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addActiveCasesList(int i) {
-    if (i % 9 == 6) {
+    if (i % 10 == 6) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _activeCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -207,7 +207,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addSerioudCriticalList(int i) {
-    if (i % 9 == 7) {
+    if (i % 10 == 7) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _seriousCriticalList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -263,7 +263,6 @@ class LocationData extends ChangeNotifier {
     _clearLists();
     _setDate(DateTime.now());
     setLoading(true);
-    print(_countriesList.length);
     // make http request
     http.Client client = http.Client();
     http.Response response =
@@ -286,8 +285,8 @@ class LocationData extends ChangeNotifier {
       _addActiveCasesList(i);
       _addSerioudCriticalList(i);
     }
+
     _addToDataList();
-    print(locationList.length);
     setLoading(false);
     _removeLastItem();
   }

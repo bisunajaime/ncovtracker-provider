@@ -181,7 +181,7 @@ class RatioWidget extends StatelessWidget {
                   style: new TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                circularStrokeCap: CircularStrokeCap.round,
+                circularStrokeCap: CircularStrokeCap.butt,
                 backgroundColor: eerieBlack,
                 linearGradient: LinearGradient(
                   colors: [
@@ -217,7 +217,7 @@ class RatioWidget extends StatelessWidget {
                   style: new TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                circularStrokeCap: CircularStrokeCap.round,
+                circularStrokeCap: CircularStrokeCap.butt,
                 backgroundColor: eerieBlack,
                 linearGradient: LinearGradient(
                   colors: [
@@ -253,7 +253,7 @@ class RatioWidget extends StatelessWidget {
                   style: new TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                circularStrokeCap: CircularStrokeCap.round,
+                circularStrokeCap: CircularStrokeCap.butt,
                 backgroundColor: eerieBlack,
                 linearGradient: LinearGradient(
                   colors: [
@@ -289,7 +289,7 @@ class RatioWidget extends StatelessWidget {
                   style: new TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                circularStrokeCap: CircularStrokeCap.round,
+                circularStrokeCap: CircularStrokeCap.butt,
                 backgroundColor: eerieBlack,
                 linearGradient: LinearGradient(
                   colors: [
