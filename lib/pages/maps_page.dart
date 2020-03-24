@@ -20,7 +20,7 @@ class MapsPage extends StatefulWidget {
   _MapsPageState createState() => _MapsPageState();
 }
 
-class _MapsPageState extends State<MapsPage> {
+class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
   LatLng initialPos = LatLng(12, 121);
   bool didTap = false;
   MapController mapController = MapController();
@@ -69,6 +69,42 @@ class _MapsPageState extends State<MapsPage> {
     });
   }
 
+  void _animateMapMove(LatLng destLoc, double destZoom) {
+    final _latTween = Tween<double>(
+        begin: mapController.center.latitude, end: destLoc.latitude);
+    final _lngTween = Tween<double>(
+        begin: mapController.center.longitude, end: destLoc.longitude);
+    final _zoomTween = Tween<double>(begin: mapController.zoom, end: destZoom);
+
+    var controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    Animation<double> animation =
+        CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+
+    controller.addListener(() {
+      mapController.move(
+        LatLng(
+          _latTween.evaluate(animation),
+          _lngTween.evaluate(animation),
+        ),
+        _zoomTween.evaluate(animation),
+      );
+    });
+
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.dispose();
+      } else if (status == AnimationStatus.dismissed) {
+        controller.dispose();
+      }
+    });
+
+    controller.forward();
+  }
+
   @override
   void initState() {
     // TODO: fetch data
@@ -92,7 +128,8 @@ class _MapsPageState extends State<MapsPage> {
       options: new MapOptions(
           center: initialPos,
           zoom: 1.5,
-          minZoom: 1.5,
+          maxZoom: 4.0,
+          minZoom: 1,
           interactive: true,
           debug: true,
           onPositionChanged: (pos, b) {
@@ -123,16 +160,16 @@ class _MapsPageState extends State<MapsPage> {
                           setState(() {
                             didTap = true;
                             initialLocation = widget.locationData[i];
-                            initialPos = LatLng(
-                              double.parse(data.lat),
-                              double.parse(data.long),
-                            );
-                            mapController.move(
+                            _animateMapMove(
                                 LatLng(
                                   double.parse(data.lat),
                                   double.parse(data.long),
                                 ),
                                 4.0);
+                            initialPos = LatLng(
+                              double.parse(data.lat),
+                              double.parse(data.long),
+                            );
                           });
                         },
                         child: Icon(
@@ -201,7 +238,27 @@ class _MapsPageState extends State<MapsPage> {
                 children: <Widget>[
                   Expanded(
                     flex: 4,
-                    child: _flutterMap(),
+                    child: Stack(
+                      children: <Widget>[
+                        _flutterMap(),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.0, bottom: 10.0),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.my_location,
+                                size: 30.0,
+                              ),
+                              color: Colors.white,
+                              onPressed: () {
+                                _animateMapMove(initialPos, 3.0);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(
                     flex: 2,
