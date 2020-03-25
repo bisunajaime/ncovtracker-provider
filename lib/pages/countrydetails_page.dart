@@ -31,15 +31,13 @@ class _CountryDetailsState extends State<CountryDetails> {
 
   // TODO: Future function getting the data from API
   Future<void> fetchData(String country) async {
-    if (country == "USA") {
-      country = "US";
-    } else if (country == "S. Korea") {
+    if (country == "S. Korea") {
       country = "Korea, South";
     }
     print(country);
     http.Client client = http.Client();
     http.Response response =
-        await client.get("https://corona.lmao.ninja/historical/$country");
+        await client.get("https://corona.lmao.ninja/v2/historical/$country");
     var data = response.body;
     var jsonData = jsonDecode(data);
 
@@ -314,18 +312,8 @@ class _CountryDetailsState extends State<CountryDetails> {
                         ),
                         Column(
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                'Deaths Ratio',
-                                style: TextStyle(
-                                  fontFamily: pMedium,
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ),
                             CircularPercentIndicator(
+                              header: Text('Deaths'),
                               radius: 130.0,
                               animation: true,
                               animationDuration: 1200,
@@ -353,18 +341,8 @@ class _CountryDetailsState extends State<CountryDetails> {
                         ),
                         Column(
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                'Recovery Ratio',
-                                style: TextStyle(
-                                  fontFamily: pMedium,
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ),
                             CircularPercentIndicator(
+                              header: Text('Recovery'),
                               radius: 130.0,
                               animation: true,
                               animationDuration: 1200,
@@ -392,18 +370,8 @@ class _CountryDetailsState extends State<CountryDetails> {
                         ),
                         Column(
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                'Active Ratio',
-                                style: TextStyle(
-                                  fontFamily: pMedium,
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ),
                             CircularPercentIndicator(
+                              header: Text('Active'),
                               radius: 130.0,
                               animation: true,
                               animationDuration: 1200,
@@ -502,25 +470,6 @@ class _CountryDetailsState extends State<CountryDetails> {
                             },
                           ),
                           color: Colors.orangeAccent,
-                          xValueMapper: (DateData date, _) => date.date,
-                          yValueMapper: (DateData data, _) => data.data,
-                        ),
-                        LineSeries<DateData, String>(
-                          legendItemText: 'Recovered',
-                          dataSource: List.generate(
-                            locationHistory.recoveredHistory.keys
-                                .toList()
-                                .length,
-                            (i) {
-                              return DateData(
-                                date: locationHistory.recoveredHistory.keys
-                                    .toList()[i],
-                                data: locationHistory.recoveredHistory.values
-                                    .toList()[i],
-                              );
-                            },
-                          ),
-                          color: Colors.greenAccent[100],
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
                         ),

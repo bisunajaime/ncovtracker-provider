@@ -11,6 +11,7 @@ import 'package:ncov_tracker/models/more_results.dart';
 class LocationData extends ChangeNotifier {
   String _searchTxt = "";
   int _counter = 0;
+  int _initialPage = 0;
   bool _loading = true;
   dom.Document _document;
   MoreResults _moreResults;
@@ -32,6 +33,13 @@ class LocationData extends ChangeNotifier {
 
   LocationData() {
     loadData();
+    notifyListeners();
+  }
+
+  int get initialPage => _initialPage;
+
+  setInitialPage(int index) {
+    _initialPage = index;
     notifyListeners();
   }
 

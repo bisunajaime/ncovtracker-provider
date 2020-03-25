@@ -161,16 +161,8 @@ class RatioWidget extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  'Deaths Ratio',
-                  style: TextStyle(
-                    fontFamily: pMedium,
-                  ),
-                ),
-              ),
               CircularPercentIndicator(
+                header: Text('Deaths'),
                 radius: 130.0,
                 animation: true,
                 animationDuration: 1200,
@@ -197,16 +189,8 @@ class RatioWidget extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  'Recovery Ratio',
-                  style: TextStyle(
-                    fontFamily: pMedium,
-                  ),
-                ),
-              ),
               CircularPercentIndicator(
+                header: Text('Recovery'),
                 radius: 130.0,
                 animation: true,
                 animationDuration: 1200,
@@ -233,16 +217,8 @@ class RatioWidget extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  'Active Ratio',
-                  style: TextStyle(
-                    fontFamily: pMedium,
-                  ),
-                ),
-              ),
               CircularPercentIndicator(
+                header: Text('Active'),
                 radius: 130.0,
                 animation: true,
                 animationDuration: 1200,
@@ -269,16 +245,8 @@ class RatioWidget extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  'Mild Ratio',
-                  style: TextStyle(
-                    fontFamily: pMedium,
-                  ),
-                ),
-              ),
               CircularPercentIndicator(
+                header: Text('Mild'),
                 radius: 130.0,
                 animation: true,
                 animationDuration: 1200,

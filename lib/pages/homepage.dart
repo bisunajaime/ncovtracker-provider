@@ -10,26 +10,7 @@ import 'package:ncov_tracker/widgets/totals_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  static int _currentIndex = 0;
-  PageController pageController = PageController(
-    initialPage: _currentIndex,
-    keepPage: true,
-  );
-  void _switchPage(int index) {
-    _currentIndex = index;
-    pageController.animateToPage(
-      _currentIndex,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -37,6 +18,11 @@ class _HomePageState extends State<HomePage> {
     ]);
     final locData = Provider.of<LocationData>(context);
     final latestUpdates = Provider.of<LatestUpdatesData>(context);
+
+    PageController pageController = PageController(
+      initialPage: locData.initialPage,
+      keepPage: true,
+    );
     Widget _buildHome() {
       return locData.loading
           ? Center(
@@ -447,7 +433,7 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           children: <Widget>[
             Text(
-              'nCovEr',
+              '${locData.initialPage == 0 ? 'nCovEr' : locData.initialPage == 1 ? 'World Totals' : locData.initialPage == 2 ? 'Latest Updates' : null}',
               style: TextStyle(
                 fontFamily: pBold,
               ),
@@ -467,8 +453,15 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: eerieBlack,
         fixedColor: deepPuce,
-        currentIndex: _currentIndex,
-        onTap: _switchPage,
+        currentIndex: locData.initialPage,
+        onTap: (i) {
+          pageController.animateToPage(
+            i,
+            duration: Duration(milliseconds: 150),
+            curve: Curves.easeInOut,
+          );
+          locData.setInitialPage(i);
+        },
         unselectedItemColor: Colors.grey[700],
         selectedIconTheme: IconThemeData(color: deepPuce),
         unselectedIconTheme: IconThemeData(color: Colors.grey[700]),
@@ -593,9 +586,11 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 locData.loadData();
                 latestUpdates.loadLatestUpdates();
-                setState(() {
-                  _currentIndex = 0;
-                });
+                pageController.animateToPage(
+                  0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.fastOutSlowIn,
+                );
               },
               backgroundColor: dustStorm,
               child: Icon(
@@ -606,11 +601,10 @@ class _HomePageState extends State<HomePage> {
       body: PageView.builder(
         controller: pageController,
         onPageChanged: (i) {
-          setState(() {
-            _currentIndex = i;
-          });
+          locData.setInitialPage(i);
         },
         itemCount: _pageItems.length,
+        physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, i) {
           return _pageItems[i];
         },
