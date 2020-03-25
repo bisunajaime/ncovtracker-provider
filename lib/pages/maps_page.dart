@@ -200,7 +200,7 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      backgroundColor: eerieBlack,
+      backgroundColor: richBlack,
       appBar: AppBar(
         title: Text(
           'Maps',

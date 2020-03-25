@@ -27,7 +27,7 @@ class TestWidget extends StatelessWidget {
                     )
                   : loc.country
                           .toLowerCase()
-                          .contains(model.searchTxt.toLowerCase())
+                          .contains(model.searchTxt.toLowerCase().trim())
                       ? DataWidget(
                           loc: loc,
                           pos: i + 1,

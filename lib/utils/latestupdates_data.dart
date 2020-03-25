@@ -29,11 +29,11 @@ class LatestUpdatesData extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get searchTxt => _searchTxt;
+  String get searchTxt => _searchTxt.trim();
 
   search(String txt) {
     _controller.addListener(() {
-      _searchTxt = _controller.text;
+      _searchTxt = _controller.text.trim();
     });
     notifyListeners();
   }

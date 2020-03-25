@@ -7,9 +7,14 @@ import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_core/core.dart';
 import 'constants/const_vars.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SyncfusionLicense.registerLicense(
+      'NT8mJyc2IWhiZH1nfWN9Z2VoZ3xhZ3xhY2Fjc2tpYWJpZ2JzEh5oOTwgNjkyOj42fTE6ICY9MhMxNj06Pzc2fTY3Jn0jOw==');
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

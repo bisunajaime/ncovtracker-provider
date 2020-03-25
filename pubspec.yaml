@@ -30,6 +30,7 @@ dependencies:
   intl: ^0.16.1
   syncfusion_flutter_charts: ^17.4.51
   percent_indicator: ^2.1.1+1
+  syncfusion_flutter_core: 
 
 dev_dependencies:
   flutter_test:

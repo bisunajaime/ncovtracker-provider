@@ -371,7 +371,8 @@ class HomePage extends StatelessWidget {
                                               .latestUpdatesModel[i].newsPost[x]
                                               .toLowerCase()
                                               .contains(latestUpdates.searchTxt
-                                                  .toLowerCase())
+                                                  .toLowerCase()
+                                                  .trim())
                                           ? Container(
                                               margin: EdgeInsets.symmetric(
                                                 vertical: 5.0,
@@ -460,7 +461,6 @@ class HomePage extends StatelessWidget {
             duration: Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn,
           );
-          locData.setInitialPage(i);
         },
         unselectedItemColor: Colors.grey[700],
         selectedIconTheme: IconThemeData(color: deepPuce),
