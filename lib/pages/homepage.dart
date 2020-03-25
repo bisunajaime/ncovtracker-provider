@@ -433,7 +433,7 @@ class HomePage extends StatelessWidget {
         title: Column(
           children: <Widget>[
             Text(
-              '${locData.initialPage == 0 ? 'nCovEr' : locData.initialPage == 1 ? 'World Totals' : locData.initialPage == 2 ? 'Latest Updates' : null}',
+              '${locData.initialPage == 0 ? 'Home' : locData.initialPage == 1 ? 'World Totals' : locData.initialPage == 2 ? 'Latest Updates' : null}',
               style: TextStyle(
                 fontFamily: pBold,
               ),
@@ -457,8 +457,8 @@ class HomePage extends StatelessWidget {
         onTap: (i) {
           pageController.animateToPage(
             i,
-            duration: Duration(milliseconds: 150),
-            curve: Curves.easeInOut,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn,
           );
           locData.setInitialPage(i);
         },
@@ -547,6 +547,87 @@ class HomePage extends StatelessWidget {
                           ),
                     ),
                   ],
+                ),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  locData.setInitialPage(0);
+                  pageController.animateToPage(
+                    0,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                color: gunMetal,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.orangeAccent[100],
+                  ),
+                  title: Text(
+                    'Home',
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontSize: 15.0,
+                          fontFamily: pMedium,
+                        ),
+                  ),
+                ),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  locData.setInitialPage(1);
+                  pageController.animateToPage(
+                    1,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                color: gunMetal,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.insert_chart,
+                    color: Colors.pinkAccent[100],
+                  ),
+                  title: Text(
+                    'World Totals',
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontSize: 15.0,
+                          fontFamily: pMedium,
+                        ),
+                  ),
+                ),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  locData.setInitialPage(2);
+                  pageController.animateToPage(
+                    2,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                color: gunMetal,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.update,
+                    color: Colors.blueAccent[100],
+                  ),
+                  title: Text(
+                    'Latest Updates',
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontSize: 15.0,
+                          fontFamily: pMedium,
+                        ),
+                  ),
                 ),
               ),
               MaterialButton(
