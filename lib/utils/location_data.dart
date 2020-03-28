@@ -146,7 +146,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalCases(int i) {
-    if (i % 10 == 0) {
+    if (i % 11 == 0) {
       if (_totalCases[i].innerHtml.contains('<a')) {
         _countriesList.add(_totalCases[i].querySelector('a').innerHtml.trim());
       } else if (_totalCases[i].innerHtml.contains('<span')) {
@@ -154,18 +154,19 @@ class LocationData extends ChangeNotifier {
             .add(_totalCases[i].querySelector('span').innerHtml.trim());
       } else {
         _countriesList.add(_totalCases[i].innerHtml.trim());
+        print(_totalCases[i].innerHtml.trim());
       }
     }
   }
 
   void _addTotalCasesList(int i) {
-    if (i % 10 == 1) {
+    if (i % 11 == 1) {
       _totalCasesList.add(_totalCases[i].innerHtml.trim());
     }
   }
 
   void _addNewCasesList(int i) {
-    if (i % 10 == 2) {
+    if (i % 11 == 2) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -175,7 +176,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalDeathsList(int i) {
-    if (i % 10 == 3) {
+    if (i % 11 == 3) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -185,7 +186,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addNewDeathsList(int i) {
-    if (i % 10 == 4) {
+    if (i % 11 == 4) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -195,7 +196,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalRecoveredList(int i) {
-    if (i % 10 == 5) {
+    if (i % 11 == 5) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalRecoveredList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -205,7 +206,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addActiveCasesList(int i) {
-    if (i % 10 == 6) {
+    if (i % 11 == 6) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _activeCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -215,7 +216,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addSerioudCriticalList(int i) {
-    if (i % 10 == 7) {
+    if (i % 11 == 7) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _seriousCriticalList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -283,6 +284,7 @@ class LocationData extends ChangeNotifier {
     _totalCases = document
         .querySelectorAll('#main_table_countries_today > tbody > tr > td');
     // loop and extract data
+
     for (var i = 0; i < _totalCases.length; i++) {
       _addTotalCases(i);
       _addTotalCasesList(i);
