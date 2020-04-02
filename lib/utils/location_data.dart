@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:html/parser.dart';
@@ -12,6 +13,7 @@ class LocationData extends ChangeNotifier {
   String _searchTxt = "";
   int _counter = 0;
   int _initialPage = 0;
+  int _numberOfCols;
   bool _loading = true;
   dom.Document _document;
   MoreResults _moreResults;
@@ -49,6 +51,11 @@ class LocationData extends ChangeNotifier {
 
   TextEditingController get controller {
     return _controller;
+  }
+
+  int get numberOfCols => _numberOfCols;
+  setNumberOfCols(int num) {
+    _numberOfCols = num;
   }
 
   search(String str) {
@@ -146,7 +153,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalCases(int i) {
-    if (i % 11 == 0) {
+    if (i % numberOfCols == 0) {
       if (_totalCases[i].innerHtml.contains('<a')) {
         _countriesList.add(_totalCases[i].querySelector('a').innerHtml.trim());
       } else if (_totalCases[i].innerHtml.contains('<span')) {
@@ -154,19 +161,18 @@ class LocationData extends ChangeNotifier {
             .add(_totalCases[i].querySelector('span').innerHtml.trim());
       } else {
         _countriesList.add(_totalCases[i].innerHtml.trim());
-        print(_totalCases[i].innerHtml.trim());
       }
     }
   }
 
   void _addTotalCasesList(int i) {
-    if (i % 11 == 1) {
+    if (i % numberOfCols == 1) {
       _totalCasesList.add(_totalCases[i].innerHtml.trim());
     }
   }
 
   void _addNewCasesList(int i) {
-    if (i % 11 == 2) {
+    if (i % numberOfCols == 2) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -176,7 +182,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalDeathsList(int i) {
-    if (i % 11 == 3) {
+    if (i % numberOfCols == 3) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -186,7 +192,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addNewDeathsList(int i) {
-    if (i % 11 == 4) {
+    if (i % numberOfCols == 4) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _newDeathsList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -196,7 +202,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addTotalRecoveredList(int i) {
-    if (i % 11 == 5) {
+    if (i % numberOfCols == 5) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _totalRecoveredList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -206,7 +212,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addActiveCasesList(int i) {
-    if (i % 11 == 6) {
+    if (i % numberOfCols == 6) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _activeCasesList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -216,7 +222,7 @@ class LocationData extends ChangeNotifier {
   }
 
   void _addSerioudCriticalList(int i) {
-    if (i % 11 == 7) {
+    if (i % numberOfCols == 7) {
       if (_totalCases[i].innerHtml.trim().length != 0) {
         _seriousCriticalList.add(_totalCases[i].innerHtml.trim());
       } else {
@@ -276,6 +282,11 @@ class LocationData extends ChangeNotifier {
     http.Client client = http.Client();
     http.Response response =
         await client.get('https://www.worldometers.info/coronavirus/');
+    http.Response cols =
+        await client.get('https://jaimebis.000webhostapp.com/get.php');
+    var colNum = jsonDecode(cols.body);
+    int col = int.parse(colNum[2]['selected_bg']);
+    setNumberOfCols(col);
     // parse response body
     var document = parse(response.body);
     _setDocument(document);
