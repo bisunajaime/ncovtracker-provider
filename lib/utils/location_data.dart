@@ -212,10 +212,10 @@ class LocationData extends ChangeNotifier {
     http.Client client = http.Client();
     http.Response response =
         await client.get('https://www.worldometers.info/coronavirus/');
-    http.Response cols =
-        await client.get('https://jaimebis.000webhostapp.com/get.php');
+    http.Response cols = await client.get(
+        'https://raw.githubusercontent.com/jose-bamboo/corona_tracker/master/assets/json/number.json');
     var colNum = jsonDecode(cols.body);
-    int col = int.parse(colNum[2]['selected_bg']);
+    int col = colNum['number'];
     print(col);
     setNumberOfCols(col);
     // parse response body
