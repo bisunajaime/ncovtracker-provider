@@ -27,6 +27,7 @@ class LocationData extends ChangeNotifier {
   List<String> _activeCasesList = [];
   List<String> _seriousCriticalList = [];
   List<dom.Element> _totalCases = [];
+  List<dom.Element> _countryRow = [];
   List<LocationModel> _locationList = [];
 
   DateTime _date = DateTime.now();
@@ -148,87 +149,16 @@ class LocationData extends ChangeNotifier {
     return _totalCases;
   }
 
+  List<dom.Element> countryRow() {
+    return _countryRow;
+  }
+
+  setCountryRow(List<dom.Element> row) {
+    _countryRow = row;
+  }
+
   List<LocationModel> get locationList {
     return _locationList;
-  }
-
-  void _addTotalCases(int i) {
-    if (i % numberOfCols == 0) {
-      if (_totalCases[i].innerHtml.contains('<a')) {
-        _countriesList.add(_totalCases[i].querySelector('a').innerHtml.trim());
-      } else if (_totalCases[i].innerHtml.contains('<span')) {
-        _countriesList
-            .add(_totalCases[i].querySelector('span').innerHtml.trim());
-      } else {
-        _countriesList.add(_totalCases[i].innerHtml.trim());
-      }
-    }
-  }
-
-  void _addTotalCasesList(int i) {
-    if (i % numberOfCols == 1) {
-      _totalCasesList.add(_totalCases[i].innerHtml.trim());
-    }
-  }
-
-  void _addNewCasesList(int i) {
-    if (i % numberOfCols == 2) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _newCasesList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _newCasesList.add('NO');
-      }
-    }
-  }
-
-  void _addTotalDeathsList(int i) {
-    if (i % numberOfCols == 3) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _totalDeathsList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _totalDeathsList.add('NONE');
-      }
-    }
-  }
-
-  void _addNewDeathsList(int i) {
-    if (i % numberOfCols == 4) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _newDeathsList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _newDeathsList.add('NO');
-      }
-    }
-  }
-
-  void _addTotalRecoveredList(int i) {
-    if (i % numberOfCols == 5) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _totalRecoveredList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _totalRecoveredList.add('NONE');
-      }
-    }
-  }
-
-  void _addActiveCasesList(int i) {
-    if (i % numberOfCols == 6) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _activeCasesList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _activeCasesList.add('NONE');
-      }
-    }
-  }
-
-  void _addSerioudCriticalList(int i) {
-    if (i % numberOfCols == 7) {
-      if (_totalCases[i].innerHtml.trim().length != 0) {
-        _seriousCriticalList.add(_totalCases[i].innerHtml.trim());
-      } else {
-        _seriousCriticalList.add('NONE');
-      }
-    }
   }
 
   void _removeLastItem() {
@@ -286,26 +216,80 @@ class LocationData extends ChangeNotifier {
         await client.get('https://jaimebis.000webhostapp.com/get.php');
     var colNum = jsonDecode(cols.body);
     int col = int.parse(colNum[2]['selected_bg']);
+    print(col);
     setNumberOfCols(col);
     // parse response body
     var document = parse(response.body);
     _setDocument(document);
     _getTotals();
     // select table data
-    _totalCases = document
-        .querySelectorAll('#main_table_countries_today > tbody > tr > td');
+    _totalCases =
+        document.querySelectorAll('#main_table_countries_today > tbody > tr');
     // loop and extract data
 
     for (var i = 0; i < _totalCases.length; i++) {
-      _addTotalCases(i);
-      _addTotalCasesList(i);
-      _addNewCasesList(i);
-      _addTotalDeathsList(i);
-      _addNewDeathsList(i);
-      _addTotalRecoveredList(i);
-      _addActiveCasesList(i);
-      _addSerioudCriticalList(i);
+      if (!_totalCases[i].attributes.containsKey('data-continent')) {
+        List<dom.Element> row = _totalCases[i].querySelectorAll('td');
+
+        for (int x = 0; x < row.length; x++) {
+          if (!row[x].attributes.containsKey('data-continent')) {
+            if (x % numberOfCols == 0) {
+              if (row[x].innerHtml.contains('<a')) {
+                _countriesList.add(row[x].querySelector('a').innerHtml.trim());
+              } else if (row[x].innerHtml.contains('<span')) {
+                _countriesList
+                    .add(row[x].querySelector('span').innerHtml.trim());
+              } else {
+                _countriesList.add(row[x].innerHtml.trim());
+              }
+            } else if (x % numberOfCols == 1) {
+              _totalCasesList.add(row[x].innerHtml.trim());
+            } else if (x % numberOfCols == 2) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _newCasesList.add(row[x].innerHtml.trim());
+              } else {
+                _newCasesList.add('NO');
+              }
+            } else if (x % numberOfCols == 3) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _totalDeathsList.add(row[x].innerHtml.trim());
+              } else {
+                _totalDeathsList.add('NONE');
+              }
+            } else if (x % numberOfCols == 4) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _newDeathsList.add(row[x].innerHtml.trim());
+              } else {
+                _newDeathsList.add('NO');
+              }
+            } else if (x % numberOfCols == 5) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _totalRecoveredList.add(row[x].innerHtml.trim() == "N/A"
+                    ? "NONE"
+                    : row[x].innerHtml.trim());
+              } else {
+                _totalRecoveredList.add('NONE');
+              }
+            } else if (x % numberOfCols == 6) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _activeCasesList.add(row[x].innerHtml.trim());
+              } else {
+                _activeCasesList.add('NONE');
+              }
+            } else if (x % numberOfCols == 7) {
+              if (row[x].innerHtml.trim().length != 0) {
+                _seriousCriticalList.add(row[x].innerHtml.trim());
+              } else {
+                _seriousCriticalList.add('NONE');
+              }
+            }
+          }
+        }
+      }
     }
+
+    print(_countriesList.length);
+    print(_activeCasesList.length);
 
     _addToDataList();
     setLoading(false);
