@@ -115,11 +115,11 @@ class WorldTotals extends StatelessWidget {
                   dataType: 'Serious / Critical',
                 ),
                 TotalsWidget(
-                  data: '${locData.moreResults.totalDischarged}',
-                  dataColor: _parseString(locData.moreResults.totalMild) > 10
+                  data: '${locData.moreResults.totalClosedCases}',
+                  dataColor: _parseString(locData.moreResults.totalClosedCases) > 10
                       ? Colors.greenAccent
                       : Colors.amberAccent,
-                  dataType: 'Discharged',
+                  dataType: 'Closed',
                 ),
               ],
             ),

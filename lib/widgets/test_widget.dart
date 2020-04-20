@@ -150,7 +150,7 @@ class DataWidget extends StatelessWidget {
               ),
               DataContainer(
                 data: loc.newDeaths,
-                dataColor: loc.newDeaths == 'NO'
+                dataColor: loc.newDeaths == 'NO' || loc.newDeaths == "NONE"
                     ? Colors.greenAccent[100]
                     : int.parse(loc.totalDeaths
                                 .replaceAll(',', '')

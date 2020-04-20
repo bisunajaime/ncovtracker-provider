@@ -217,12 +217,12 @@ class HomePage extends StatelessWidget {
                         dataType: 'Serious / Critical',
                       ),
                       TotalsWidget(
-                        data: '${locData.moreResults.totalDischarged}',
+                        data: '${locData.moreResults.totalClosedCases}',
                         dataColor:
-                            _parseString(locData.moreResults.totalMild) > 10
+                            _parseString(locData.moreResults.totalClosedCases) > 10
                                 ? Colors.greenAccent
                                 : Colors.amberAccent,
-                        dataType: 'Discharged',
+                        dataType: 'Closed',
                       ),
                     ],
                   ),
@@ -440,7 +440,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Text(
-              '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
+              '${locData.locationList.length == 0 ? 'Loading' : locData.locationList.length} Affected Areas',
               style: TextStyle(
                 fontSize: 12.0,
                 fontFamily: pMedium,
@@ -529,7 +529,7 @@ class HomePage extends StatelessWidget {
                           ),
                     ),
                     Text(
-                      '${locData.countriesList.length == 0 ? 'Loading' : locData.countriesList.length} Affected Areas',
+                      '${locData.locationList.length == 0 ? 'Loading' : locData.locationList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
                             color: deepPuce,
@@ -665,7 +665,7 @@ class HomePage extends StatelessWidget {
           ? null
           : FloatingActionButton(
               onPressed: () {
-                locData.loadData();
+                locData.buildData();
                 latestUpdates.loadLatestUpdates();
                 pageController.animateToPage(
                   0,

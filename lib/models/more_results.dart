@@ -24,11 +24,10 @@ class MoreResults {
       totalCases: json['totalCases'],
       totalDeaths: json['totalDeaths'],
       totalRecovered: json['totalRecovered'],
-      totalActiveCases: json['totalActiveCases'],
-      totalClosedCases: json['totalClosedCases'],
+      totalActiveCases: json['totalActive'],
+      totalClosedCases: json['totalClosed'],
       totalMild: json['totalMild'],
-      totalSeriousCritical: json['totalSeriousCritical'],
-      totalDischarged: json['totalDischarged'],
+      totalSeriousCritical: json['totalSeriousCrit'],
     );
   }
 }
