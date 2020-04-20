@@ -5,7 +5,7 @@ class LatestUpdatesModel {
   LatestUpdatesModel({this.date, this.newsPost});
 
   factory LatestUpdatesModel.fromJson(Map<String, dynamic> json) {
-    var postsfromjson = json['news_post'];
+    var postsfromjson = json['news'];
     List<String> posts = new List<String>.from(postsfromjson);
 
     return LatestUpdatesModel(

@@ -29,7 +29,7 @@ class LatestUpdatesPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: gunMetal,
-        onPressed: latestUpdates.loadLatestUpdates,
+        onPressed: latestUpdates.fetchUpdates,
         child: Icon(
           Icons.refresh,
           color: Colors.white,

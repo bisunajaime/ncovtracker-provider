@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
 import 'package:ncov_tracker/pages/latest_updates.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';

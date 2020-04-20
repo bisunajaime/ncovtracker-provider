@@ -32,7 +32,6 @@ class _CountryDetailsState extends State<CountryDetails> {
     if (country == "S. Korea") {
       country = "Korea, South";
     }
-    print(country);
     http.Client client = http.Client();
     http.Response response =
         await client.get("https://corona.lmao.ninja/v2/historical/$country");
@@ -51,10 +50,6 @@ class _CountryDetailsState extends State<CountryDetails> {
     double totalActive = widget.locationModel.activeCases == 'NONE'
         ? 0.0
         : double.parse(widget.locationModel.activeCases.replaceAll(',', ''));
-    print(totalCases);
-    print(totalDeaths);
-    print(totalRecovery);
-    print(totalActive);
 
     setState(() {
       locationHistory = LocationHistory.fromJson(jsonData);
@@ -63,8 +58,6 @@ class _CountryDetailsState extends State<CountryDetails> {
       recoverRatio = totalRecovery / totalCases;
       activeRatio = totalActive / totalCases;
     });
-    print(deathRatio);
-    print(recoverRatio);
   }
 
   @override

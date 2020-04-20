@@ -665,8 +665,8 @@ class HomePage extends StatelessWidget {
           ? null
           : FloatingActionButton(
               onPressed: () {
-                locData.buildData();
-                latestUpdates.loadLatestUpdates();
+                locData.fetchData();
+                latestUpdates.fetchUpdates();
                 pageController.animateToPage(
                   0,
                   duration: Duration(milliseconds: 500),

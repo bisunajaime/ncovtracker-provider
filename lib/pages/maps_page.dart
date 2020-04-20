@@ -60,9 +60,7 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
 
     Future<MapController> mc = mapController.onReady;
     mc.whenComplete(() {
-      print('complete');
     }).catchError((onError) {
-      print(onError);
       setState(() {
         _loading = false;
       });

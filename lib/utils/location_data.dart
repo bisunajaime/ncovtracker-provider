@@ -23,7 +23,7 @@ class LocationData extends ChangeNotifier {
   TextEditingController _controller = TextEditingController();
 
   LocationData() {
-    buildData();
+    fetchData();
     notifyListeners();
   }
 
@@ -105,23 +105,11 @@ class LocationData extends ChangeNotifier {
     http.Response response = await client.get('https://covid19-codej.herokuapp.com/countries');
     List data = jsonDecode(response.body) as List;
     _locationList = data.map((d) => LocationModel.fromJson(d)).toList();
-    print("LEN ${_locationList.length}");
+    http.Response resResponse = await client.get('https://covid19-codej.herokuapp.com/totals');
+    _moreResults = MoreResults.fromJson(jsonDecode(resResponse.body));
+    client.close();
     setLoading(false);
     
-  }
-
-  buildData() {
-    fetchData();
-    fetchTotals();
-  }
-
-  void fetchTotals() async {
-    setLoading(true);
-    http.Client client = http.Client();
-    http.Response response = await client.get('https://covid19-codej.herokuapp.com/totals');
-    _moreResults = MoreResults.fromJson(jsonDecode(response.body));
-    print("RES: ${_moreResults.totalClosedCases}");
-    setLoading(false);
   }
 
   
