@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:ncov_tracker/widgets/data_container.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -29,7 +28,6 @@ class _CountryDetailsState extends State<CountryDetails> {
   double recoverRatio = 0.0;
   double activeRatio = 0.0;
 
-  // TODO: Future function getting the data from API
   Future<void> fetchData(String country) async {
     if (country == "S. Korea") {
       country = "Korea, South";
@@ -71,7 +69,6 @@ class _CountryDetailsState extends State<CountryDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
     fetchData(widget.locationModel.country);
     super.initState();
   }

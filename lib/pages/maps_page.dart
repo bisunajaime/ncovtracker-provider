@@ -107,14 +107,12 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: fetch data
     super.initState();
     loadData();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     setState(() {
       locData.clear();
     });
