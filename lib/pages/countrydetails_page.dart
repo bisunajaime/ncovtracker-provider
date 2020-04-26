@@ -480,6 +480,25 @@ class _CountryDetailsState extends State<CountryDetails> {
                           xValueMapper: (DateData date, _) => date.date,
                           yValueMapper: (DateData data, _) => data.data,
                         ),
+                        LineSeries<DateData, String>(
+                          legendItemText: 'Recovery',
+                          dataSource: List.generate(
+                            locationHistory.recoveredHistory.keys
+                                .toList()
+                                .length,
+                            (i) {
+                              return DateData(
+                                date: locationHistory.recoveredHistory.keys
+                                    .toList()[i],
+                                data: locationHistory.recoveredHistory.values
+                                    .toList()[i],
+                              );
+                            },
+                          ),
+                          color: Colors.greenAccent[100],
+                          xValueMapper: (DateData date, _) => date.date,
+                          yValueMapper: (DateData data, _) => data.data,
+                        ),
                       ],
                     ),
                   ),
