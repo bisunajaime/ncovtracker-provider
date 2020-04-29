@@ -114,9 +114,10 @@ class WorldTotals extends StatelessWidget {
                 ),
                 TotalsWidget(
                   data: '${locData.moreResults.totalClosedCases}',
-                  dataColor: _parseString(locData.moreResults.totalClosedCases) > 10
-                      ? Colors.greenAccent
-                      : Colors.amberAccent,
+                  dataColor:
+                      _parseString(locData.moreResults.totalClosedCases) > 10
+                          ? Colors.greenAccent
+                          : Colors.amberAccent,
                   dataType: 'Closed',
                 ),
               ],
@@ -172,7 +173,7 @@ class RatioWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
                 circularStrokeCap: CircularStrokeCap.butt,
-                backgroundColor: eerieBlack,
+                backgroundColor: box,
                 linearGradient: LinearGradient(
                   colors: [
                     Colors.orangeAccent,
@@ -200,7 +201,7 @@ class RatioWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
                 circularStrokeCap: CircularStrokeCap.butt,
-                backgroundColor: eerieBlack,
+                backgroundColor: box,
                 linearGradient: LinearGradient(
                   colors: [
                     Colors.blueAccent,
@@ -228,7 +229,7 @@ class RatioWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
                 circularStrokeCap: CircularStrokeCap.butt,
-                backgroundColor: eerieBlack,
+                backgroundColor: box,
                 linearGradient: LinearGradient(
                   colors: [
                     Colors.amberAccent,
@@ -256,7 +257,7 @@ class RatioWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
                 circularStrokeCap: CircularStrokeCap.butt,
-                backgroundColor: eerieBlack,
+                backgroundColor: box,
                 linearGradient: LinearGradient(
                   colors: [
                     Colors.purpleAccent,

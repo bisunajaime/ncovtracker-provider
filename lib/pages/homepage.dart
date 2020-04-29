@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
@@ -29,9 +30,8 @@ class HomePage extends StatelessWidget {
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircularProgressIndicator(
-                  backgroundColor: russianViolet,
-                  valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                LoadingBouncingGrid.circle(
+                  backgroundColor: one,
                 ),
                 SizedBox(
                   height: 5.0,
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                 Text(
                   'Loading',
                   style: TextStyle(
-                    color: dustStorm,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                             size: 20,
                           ),
                           filled: true,
-                          fillColor: Color(0xff9c7c8b),
+                          fillColor: box,
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
@@ -119,14 +119,13 @@ class HomePage extends StatelessWidget {
     }
 
     Widget _buildTotals() {
-      return locData.loading
+      return locData.loadingTotals
           ? Center(
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircularProgressIndicator(
-                  backgroundColor: russianViolet,
-                  valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                LoadingBouncingGrid.circle(
+                  backgroundColor: one,
                 ),
                 SizedBox(
                   height: 5.0,
@@ -134,7 +133,7 @@ class HomePage extends StatelessWidget {
                 Text(
                   'Loading',
                   style: TextStyle(
-                    color: dustStorm,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -143,91 +142,97 @@ class HomePage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: richBlack,
+                color: five,
               ),
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalCases}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalCases) > 10
-                                ? Colors.amberAccent
-                                : Colors.greenAccent[100],
-                        dataType: 'Total Cases',
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalDeaths}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalDeaths) > 10
-                                ? Colors.amberAccent
-                                : Colors.greenAccent[100],
-                        dataType: 'Deaths',
-                      ),
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalRecovered}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalRecovered) >
-                                    10
-                                ? Colors.greenAccent
-                                : Colors.amberAccent,
-                        dataType: 'Recovered',
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalActiveCases}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalActiveCases) >
-                                    10
-                                ? Colors.amberAccent
-                                : Colors.greenAccent,
-                        dataType: 'Active Cases',
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalMild}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalMild) > 10
-                                ? Colors.purpleAccent[100]
-                                : Colors.amberAccent,
-                        dataType: 'Mild Condition',
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalSeriousCritical}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalMild) > 10
-                                ? Colors.redAccent[100]
-                                : Colors.amberAccent,
-                        dataType: 'Serious / Critical',
-                      ),
-                      TotalsWidget(
-                        data: '${locData.moreResults.totalClosedCases}',
-                        dataColor:
-                            _parseString(locData.moreResults.totalClosedCases) > 10
-                                ? Colors.greenAccent
-                                : Colors.amberAccent,
-                        dataType: 'Closed',
-                      ),
-                    ],
-                  ),
-                  RatioWidget(),
-                ],
+              child: RefreshIndicator(
+                onRefresh: () async => locData.fetchTotals(),
+                color: one,
+                backgroundColor: box,
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalCases}',
+                          dataColor:
+                              _parseString(locData.moreResults.totalCases) > 10
+                                  ? Colors.amberAccent
+                                  : Colors.greenAccent[100],
+                          dataType: 'Total Cases',
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalDeaths}',
+                          dataColor:
+                              _parseString(locData.moreResults.totalDeaths) > 10
+                                  ? Colors.amberAccent
+                                  : Colors.greenAccent[100],
+                          dataType: 'Deaths',
+                        ),
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalRecovered}',
+                          dataColor:
+                              _parseString(locData.moreResults.totalRecovered) >
+                                      10
+                                  ? Colors.greenAccent
+                                  : Colors.amberAccent,
+                          dataType: 'Recovered',
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalActiveCases}',
+                          dataColor: _parseString(
+                                      locData.moreResults.totalActiveCases) >
+                                  10
+                              ? Colors.amberAccent
+                              : Colors.greenAccent,
+                          dataType: 'Active Cases',
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalMild}',
+                          dataColor:
+                              _parseString(locData.moreResults.totalMild) > 10
+                                  ? Colors.purpleAccent[100]
+                                  : Colors.amberAccent,
+                          dataType: 'Mild Condition',
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalSeriousCritical}',
+                          dataColor:
+                              _parseString(locData.moreResults.totalMild) > 10
+                                  ? Colors.redAccent[100]
+                                  : Colors.amberAccent,
+                          dataType: 'Serious / Critical',
+                        ),
+                        TotalsWidget(
+                          data: '${locData.moreResults.totalClosedCases}',
+                          dataColor: _parseString(
+                                      locData.moreResults.totalClosedCases) >
+                                  10
+                              ? Colors.greenAccent
+                              : Colors.amberAccent,
+                          dataType: 'Closed',
+                        ),
+                      ],
+                    ),
+                    RatioWidget(),
+                  ],
+                ),
               ),
             );
     }
@@ -238,9 +243,8 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircularProgressIndicator(
-                    backgroundColor: russianViolet,
-                    valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                  LoadingBouncingGrid.circle(
+                    backgroundColor: one,
                   ),
                   SizedBox(
                     height: 5.0,
@@ -248,7 +252,7 @@ class HomePage extends StatelessWidget {
                   Text(
                     'Loading',
                     style: TextStyle(
-                      color: dustStorm,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -288,7 +292,7 @@ class HomePage extends StatelessWidget {
                             size: 20.0,
                           ),
                           filled: true,
-                          fillColor: Color(0xff9c7c8b),
+                          fillColor: box,
                           hintText: 'Search a country',
                           hintStyle: TextStyle(
                             fontFamily: pMedium,
@@ -322,99 +326,111 @@ class HomePage extends StatelessWidget {
                 //Latest News
                 Expanded(
                   child: Container(
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        addAutomaticKeepAlives: true,
-                        cacheExtent: 10,
-                        itemCount: latestUpdates.latestUpdatesModel.length,
-                        itemBuilder: (context, i) {
-                          var date = DateFormat.yMMMd().add_jm().format(
-                              DateTime.parse(latestUpdates
-                                  .latestUpdatesModel[i].date
-                                  .replaceAll('newsdate', '')));
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 5.0,
-                                    horizontal: 20.0,
-                                  ),
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: gunMetal,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    '$date',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .title
-                                        .copyWith(
-                                          fontFamily: pMedium,
-                                          color: antiFlashWhite,
-                                        ),
-                                  ),
-                                ),
-                                Column(
+                    child: Scrollbar(
+                      child: RefreshIndicator(
+                        onRefresh: () async => latestUpdates.fetchUpdates(),
+                        backgroundColor: box,
+                        color: one,
+                        child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            addAutomaticKeepAlives: true,
+                            cacheExtent: 10,
+                            itemCount: latestUpdates.latestUpdatesModel.length,
+                            itemBuilder: (context, i) {
+                              var date = DateFormat.yMMMd().add_jm().format(
+                                  DateTime.parse(latestUpdates
+                                      .latestUpdatesModel[i].date
+                                      .replaceAll('newsdate', '')));
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: List.generate(
-                                    latestUpdates
-                                        .latestUpdatesModel[i].newsPost.length,
-                                    (x) {
-                                      return latestUpdates
-                                              .latestUpdatesModel[i].newsPost[x]
-                                              .toLowerCase()
-                                              .contains(latestUpdates.searchTxt
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 5.0,
+                                        horizontal: 20.0,
+                                      ),
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: box,
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      child: Text(
+                                        '$date',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .title
+                                            .copyWith(
+                                              fontFamily: pMedium,
+                                              color: antiFlashWhite,
+                                            ),
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: List.generate(
+                                        latestUpdates.latestUpdatesModel[i]
+                                            .newsPost.length,
+                                        (x) {
+                                          return latestUpdates
+                                                  .latestUpdatesModel[i]
+                                                  .newsPost[x]
                                                   .toLowerCase()
-                                                  .trim())
-                                          ? Container(
-                                              margin: EdgeInsets.symmetric(
-                                                vertical: 5.0,
-                                              ),
-                                              padding: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    deepPuce,
-                                                    russianViolet,
-                                                  ],
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 5.0,
-                                                    color: Colors.black87,
-                                                  )
-                                                ],
-                                              ),
-                                              child: Text(
-                                                '${latestUpdates.latestUpdatesModel[i].newsPost[x]}',
-                                                textAlign: TextAlign.justify,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle
-                                                    .copyWith(
-                                                      fontFamily: pRegular,
-                                                      fontSize: 11.0,
-                                                      color: Colors.white,
+                                                  .contains(latestUpdates
+                                                      .searchTxt
+                                                      .toLowerCase()
+                                                      .trim())
+                                              ? Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: 5.0,
+                                                  ),
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        five,
+                                                        box,
+                                                      ],
                                                     ),
-                                              ),
-                                            )
-                                          : Container();
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        blurRadius: 5.0,
+                                                        color: Colors.black87,
+                                                      )
+                                                    ],
+                                                  ),
+                                                  child: Text(
+                                                    '${latestUpdates.latestUpdatesModel[i].newsPost[x]}',
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle
+                                                        .copyWith(
+                                                          fontFamily: pRegular,
+                                                          fontSize: 11.0,
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                )
+                                              : Container();
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                    ),
                   ),
                 )
               ],
@@ -428,9 +444,9 @@ class HomePage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: eerieBlack,
+      backgroundColor: five,
       appBar: AppBar(
-        backgroundColor: russianViolet,
+        backgroundColor: box,
         title: Column(
           children: <Widget>[
             Text(
@@ -444,7 +460,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12.0,
                 fontFamily: pMedium,
-                color: dustStorm,
+                color: one,
               ),
             )
           ],
@@ -452,7 +468,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: eerieBlack,
+        backgroundColor: box,
         fixedColor: deepPuce,
         currentIndex: locData.initialPage,
         onTap: (i) {
@@ -463,7 +479,7 @@ class HomePage extends StatelessWidget {
           );
         },
         unselectedItemColor: Colors.grey[700],
-        selectedIconTheme: IconThemeData(color: deepPuce),
+        selectedIconTheme: IconThemeData(color: one),
         unselectedIconTheme: IconThemeData(color: Colors.grey[700]),
         type: BottomNavigationBarType.fixed,
         items: [
@@ -510,29 +526,37 @@ class HomePage extends StatelessWidget {
       ),
       drawer: Drawer(
         child: Container(
-          color: eerieBlack,
+          color: five,
           child: Column(
             children: <Widget>[
               Container(
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: eerieBlack,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      box,
+                      five,
+                    ],
+                  ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'nCovEr',
+                      'COVID-19',
                       style: Theme.of(context).textTheme.title.copyWith(
                             fontSize: 30.0,
+                            fontFamily: pBlack,
                           ),
                     ),
                     Text(
                       '${locData.locationList.length == 0 ? 'Loading' : locData.locationList.length} Affected Areas',
                       style: Theme.of(context).textTheme.body1.copyWith(
                             fontSize: 15.0,
-                            color: deepPuce,
+                            color: one,
                             fontFamily: pMedium,
                           ),
                     ),
@@ -561,7 +585,7 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
-                color: gunMetal,
+                color: box,
                 child: ListTile(
                   leading: Icon(
                     Icons.home,
@@ -588,7 +612,7 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
-                color: gunMetal,
+                color: box,
                 child: ListTile(
                   leading: Icon(
                     Icons.insert_chart,
@@ -615,7 +639,7 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
-                color: gunMetal,
+                color: box,
                 child: ListTile(
                   leading: Icon(
                     Icons.update,
@@ -642,7 +666,7 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
-                color: gunMetal,
+                color: box,
                 child: ListTile(
                   leading: Icon(
                     Icons.map,
@@ -661,24 +685,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: locData.loading || latestUpdates.loading
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                locData.fetchData();
-                latestUpdates.fetchUpdates();
-                pageController.animateToPage(
-                  0,
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.fastOutSlowIn,
-                );
-              },
-              backgroundColor: dustStorm,
-              child: Icon(
-                Icons.refresh,
-                color: gunMetal,
-              ),
-            ),
       body: PageView.builder(
         controller: pageController,
         onPageChanged: (i) {

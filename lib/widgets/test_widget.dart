@@ -13,27 +13,32 @@ class TestWidget extends StatelessWidget {
     return Expanded(
       child: Container(
         child: Scrollbar(
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: model.locationList.length,
-            itemBuilder: (context, i) {
-              LocationModel loc = model.locationList[i];
-              return model.searchTxt == null ||
-                      model.searchTxt == "" ||
-                      model.searchTxt.trim().length == 0
-                  ? DataWidget(
-                      loc: loc,
-                      pos: i + 1,
-                    )
-                  : loc.country
-                          .toLowerCase()
-                          .contains(model.searchTxt.toLowerCase().trim())
-                      ? DataWidget(
-                          loc: loc,
-                          pos: i + 1,
-                        )
-                      : Container();
-            },
+          child: RefreshIndicator(
+            onRefresh: () async => model.fetchData(),
+            backgroundColor: box,
+            color: one,
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: model.locationList.length,
+              itemBuilder: (context, i) {
+                LocationModel loc = model.locationList[i];
+                return model.searchTxt == null ||
+                        model.searchTxt == "" ||
+                        model.searchTxt.trim().length == 0
+                    ? DataWidget(
+                        loc: loc,
+                        pos: i + 1,
+                      )
+                    : loc.country
+                            .toLowerCase()
+                            .contains(model.searchTxt.toLowerCase().trim())
+                        ? DataWidget(
+                            loc: loc,
+                            pos: i + 1,
+                          )
+                        : Container();
+              },
+            ),
           ),
         ),
       ),
@@ -60,14 +65,7 @@ class DataWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            russianViolet,
-            eerieBlack,
-          ],
-        ),
+        color: box,
         boxShadow: [
           BoxShadow(
             blurRadius: 10.0,
@@ -156,7 +154,7 @@ class DataWidget extends StatelessWidget {
                                 .replaceAll(',', '')
                                 .replaceAll('+', '')) >
                             10
-                        ? Colors.purpleAccent[100]
+                        ? Colors.redAccent[100]
                         : Colors.greenAccent[100],
                 type: 'New Deaths',
               ),
@@ -214,31 +212,18 @@ class DataWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              color: deepPuce,
+              color: one,
               splashColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'More info',
-                    style: Theme.of(context).textTheme.display1.copyWith(
-                          fontSize: 15.0,
-                          color: Colors.white,
-                          fontFamily: pBold,
-                        ),
-                  ),
-                  SizedBox(
-                    width: 5.0,
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                ],
+              child: Text(
+                'Historical',
+                style: Theme.of(context).textTheme.display1.copyWith(
+                      fontSize: 15.0,
+                      color: Colors.white,
+                      fontFamily: pBold,
+                    ),
               ),
             ),
           )

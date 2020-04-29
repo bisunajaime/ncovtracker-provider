@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:provider/provider.dart';
@@ -40,9 +41,8 @@ class LatestUpdatesPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircularProgressIndicator(
-                    backgroundColor: russianViolet,
-                    valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                  LoadingBouncingGrid.square(
+                    backgroundColor: box,
                   ),
                   SizedBox(
                     height: 5.0,

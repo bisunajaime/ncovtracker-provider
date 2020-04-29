@@ -32,6 +32,7 @@ dependencies:
   percent_indicator: ^2.1.1+1
   syncfusion_flutter_core:
   flutter_launcher_icons: "^0.7.3"
+  loading_animations: ^2.1.0
 
 flutter_icons:
   android: true

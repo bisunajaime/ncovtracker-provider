@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:ncov_tracker/constants/const_vars.dart';
 import 'package:ncov_tracker/models/location_data_model.dart';
 import 'package:ncov_tracker/models/location_model.dart';
@@ -59,8 +60,7 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
     loadLocations();
 
     Future<MapController> mc = mapController.onReady;
-    mc.whenComplete(() {
-    }).catchError((onError) {
+    mc.whenComplete(() {}).catchError((onError) {
       setState(() {
         _loading = false;
       });
@@ -205,18 +205,17 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
           ),
         ),
         centerTitle: true,
-        backgroundColor: russianViolet,
+        backgroundColor: box,
       ),
       body: Container(
-        color: eerieBlack,
+        color: box,
         child: _loading
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(
-                      backgroundColor: russianViolet,
-                      valueColor: AlwaysStoppedAnimation<Color>(deepPuce),
+                    LoadingBouncingGrid.square(
+                      backgroundColor: one,
                     ),
                     SizedBox(
                       height: 5,
@@ -261,7 +260,7 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
                     child: !didTap
                         ? Container(
                             width: double.infinity,
-                            color: eerieBlack,
+                            color: box,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -285,7 +284,7 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
                           )
                         : Container(
                             width: double.infinity,
-                            color: russianViolet,
+                            color: box,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 5.0),
                             child: Column(
@@ -362,35 +361,28 @@ class _MapsPageState extends State<MapsPage> with TickerProviderStateMixin {
                                   height: 5.0,
                                 ),
                                 Expanded(
-                                  child: FlatButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    color: deepPuce,
-                                    onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CountryDetails(
-                                                  locationModel:
-                                                      initialLocation,
-                                                ))),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'More Info',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: pBold,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      color: one,
+                                      onPressed: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CountryDetails(
+                                                    locationModel:
+                                                        initialLocation,
+                                                  ))),
+                                      child: Text(
+                                        'Historical',
+                                        style: TextStyle(
                                           color: Colors.white,
+                                          fontFamily: pBold,
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),

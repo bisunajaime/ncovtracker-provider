@@ -5,20 +5,19 @@ const String pBold = 'Poppins-Bold';
 const String pMedium = 'Poppins-Medium';
 const String pRegular = 'Poppins-Regular';
 
-// colors
-
-//const Color richBlack = Color(0xff070305);
-//const Color smokyBlack = Color(0xff130d0f);
-//const Color eerieBlack = Color(0xff231b18);
-//const Color oldBurgundy = Color(0xff39302E);
-//const Color bistre = Color(0xff342824);
-
 const Color eerieBlack = Color(0xff1a1423);
 const Color russianViolet = Color(0xff372549);
 const Color deepTaupe = Color(0xff774c60);
 const Color deepPuce = Color(0xffb75d69);
 const Color dustStorm = Color(0xffeacdc2);
 const Color richBlack = Color(0xff0b0916);
+
+const Color one = Color(0xffe63946);
+const Color two = Color(0xffF1FAEE);
+const Color three = Color(0xffA8DADC);
+const Color four = Color(0xff457B9D);
+const Color five = Color(0xff1D3557);
+const Color box = Color(0xff011627);
 
 const Color gunMetal = Color(0xff2b2d42);
 const Color grayBlue = Color(0xff8d99ae);

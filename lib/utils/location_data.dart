@@ -14,6 +14,7 @@ class LocationData extends ChangeNotifier {
   int _initialPage = 0;
   int _numberOfCols;
   bool _loading = true;
+  bool _loadingTotals = true;
   dom.Document _document;
   MoreResults _moreResults;
   List<LocationModel> _locationList = [];
@@ -24,6 +25,7 @@ class LocationData extends ChangeNotifier {
 
   LocationData() {
     fetchData();
+    fetchTotals();
     notifyListeners();
   }
 
@@ -31,6 +33,13 @@ class LocationData extends ChangeNotifier {
 
   setInitialPage(int index) {
     _initialPage = index;
+    notifyListeners();
+  }
+
+  bool get loadingTotals => _loadingTotals;
+
+  setLoadingTotals(bool isLoading) {
+    _loadingTotals = isLoading;
     notifyListeners();
   }
 
@@ -102,15 +111,22 @@ class LocationData extends ChangeNotifier {
     _setDate(DateTime.now());
     setLoading(true);
     http.Client client = http.Client();
-    http.Response response = await client.get('https://covid19-codej.herokuapp.com/countries');
+    http.Response response =
+        await client.get('https://covid19-codej.herokuapp.com/countries');
     List data = jsonDecode(response.body) as List;
     _locationList = data.map((d) => LocationModel.fromJson(d)).toList();
-    http.Response resResponse = await client.get('https://covid19-codej.herokuapp.com/totals');
-    _moreResults = MoreResults.fromJson(jsonDecode(resResponse.body));
     client.close();
     setLoading(false);
-    
   }
 
-  
+  void fetchTotals() async {
+    setLoadingTotals(true);
+    _setDate(DateTime.now());
+    http.Client client = http.Client();
+    http.Response resResponse =
+        await client.get('https://covid19-codej.herokuapp.com/totals');
+    _moreResults = MoreResults.fromJson(jsonDecode(resResponse.body));
+    client.close();
+    setLoadingTotals(false);
+  }
 }

@@ -34,7 +34,7 @@ class TotalsWidget extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.circular(5),
-          color: eerieBlack,
+          color: box,
         ),
         child: Column(
           children: <Widget>[
