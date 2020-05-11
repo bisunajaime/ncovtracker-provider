@@ -167,8 +167,8 @@ class LocationData extends ChangeNotifier {
     _setDate(DateTime.now());
     setLoading(true);
     http.Client client = http.Client();
-    http.Response response = await client
-        .get('https://first-express-app-276913.df.r.appspot.com/countries');
+    http.Response response = await client.get(
+        'https://first-express-app-276913.df.r.appspot.com/countries/sort/$_filterBy');
     List data = jsonDecode(response.body) as List;
     _locationList = data.map((d) => LocationModel.fromJson(d)).toList();
     _locationList.removeAt(0);
