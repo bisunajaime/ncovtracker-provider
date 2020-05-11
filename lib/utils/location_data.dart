@@ -18,6 +18,8 @@ class LocationData extends ChangeNotifier {
   dom.Document _document;
   MoreResults _moreResults;
   List<LocationModel> _locationList = [];
+  String _filterBy = "totalCases";
+  String _filterTitle = "Total Cases";
 
   DateTime _date = DateTime.now();
 
@@ -45,6 +47,60 @@ class LocationData extends ChangeNotifier {
 
   String get searchTxt {
     return _searchTxt;
+  }
+
+  String get filterBy => _filterBy;
+
+  setFilterBy(String type) {
+    _filterBy = type;
+    notifyListeners();
+  }
+
+  String get filterTitle => _filterTitle;
+  setFilterTitle(String title) => _filterTitle = title;
+
+  void reverseList() {
+    List<LocationModel> reversed = new List.from(_locationList.reversed);
+    _locationList = reversed;
+    notifyListeners();
+  }
+
+  void filterList(String filt) {
+    _locationList.sort((a, b) {
+      switch (filt) {
+        case 'totalCases':
+          return int.parse(removeComma(b.totalCases))
+              .compareTo(int.parse(removeComma(a.totalCases)));
+        case 'newCases':
+          return int.parse(removeComma(b.newCases))
+              .compareTo(int.parse(removeComma(a.newCases)));
+
+        case 'totalDeaths':
+          return int.parse(removeComma(b.totalDeaths))
+              .compareTo(int.parse(removeComma(a.totalDeaths)));
+
+        case 'newDeaths':
+          return int.parse(removeComma(b.newDeaths))
+              .compareTo(int.parse(removeComma(a.newDeaths)));
+        case 'totalRecovered':
+          return int.parse(removeComma(b.totalRecovered))
+              .compareTo(int.parse(removeComma(a.totalRecovered)));
+        case 'seriousCritical':
+          return int.parse(removeComma(b.seriousCritical))
+              .compareTo(int.parse(removeComma(a.seriousCritical)));
+        case 'activeCases':
+          return int.parse(removeComma(b.activeCases))
+              .compareTo(int.parse(removeComma(a.activeCases)));
+        default:
+          return 0;
+      }
+    });
+
+    notifyListeners();
+  }
+
+  String removeComma(String str) {
+    return str.replaceAll(',', '').replaceAll('+', '').replaceAll('NONE', '0');
   }
 
   TextEditingController get controller {
@@ -111,10 +167,11 @@ class LocationData extends ChangeNotifier {
     _setDate(DateTime.now());
     setLoading(true);
     http.Client client = http.Client();
-    http.Response response =
-        await client.get('https://covid19-codej.herokuapp.com/countries');
+    http.Response response = await client
+        .get('https://first-express-app-276913.df.r.appspot.com/countries');
     List data = jsonDecode(response.body) as List;
     _locationList = data.map((d) => LocationModel.fromJson(d)).toList();
+    _locationList.removeAt(0);
     client.close();
     setLoading(false);
   }
@@ -123,8 +180,8 @@ class LocationData extends ChangeNotifier {
     setLoadingTotals(true);
     _setDate(DateTime.now());
     http.Client client = http.Client();
-    http.Response resResponse =
-        await client.get('https://covid19-codej.herokuapp.com/totals');
+    http.Response resResponse = await client
+        .get('https://first-express-app-276913.df.r.appspot.com/totals');
     _moreResults = MoreResults.fromJson(jsonDecode(resResponse.body));
     client.close();
     setLoadingTotals(false);

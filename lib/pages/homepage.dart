@@ -6,6 +6,7 @@ import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
+import 'package:ncov_tracker/widgets/filter_widget.dart';
 import 'package:ncov_tracker/widgets/test_widget.dart';
 import 'package:ncov_tracker/widgets/totals_widget.dart';
 import 'package:provider/provider.dart';
@@ -25,93 +26,177 @@ class HomePage extends StatelessWidget {
       keepPage: true,
     );
     Widget _buildHome() {
-      return locData.loading
-          ? Center(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                LoadingBouncingGrid.circle(
-                  backgroundColor: one,
+      return Column(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 5.0,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Text(
-                  'Loading',
+                child: TextField(
                   style: TextStyle(
-                    color: Colors.white,
+                    color: antiFlashWhite,
+                    fontFamily: pMedium,
+                    fontSize: 15.0,
                   ),
+                  controller: locData.controller,
+                  onChanged: locData.search,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                    ),
+                    suffixIcon: GestureDetector(
+                      child: Icon(
+                        Icons.backspace,
+                        color: antiFlashWhite,
+                        size: 20.0,
+                      ),
+                      onTap: locData.clearTxt,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: antiFlashWhite,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: box,
+                    hintText: 'Search a country',
+                    hintStyle: TextStyle(
+                      fontFamily: pMedium,
+                      color: antiFlashWhite,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xff5433FF),
+                        style: BorderStyle.solid,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                  scrollPhysics: BouncingScrollPhysics(),
                 ),
-              ],
-            ))
-          : Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 5.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      TextField(
-                        style: TextStyle(
-                          color: antiFlashWhite,
-                          fontFamily: pMedium,
-                          fontSize: 15.0,
-                        ),
-                        controller: locData.controller,
-                        onChanged: locData.search,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10.0,
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Container(
+                height: 30,
+                width: double.infinity,
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'totalCases',
+                      title: 'Total Cases',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'totalDeaths',
+                      title: 'Total Deaths',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'newCases',
+                      title: 'New Cases',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'newDeaths',
+                      title: 'New Deaths',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'totalRecovered',
+                      title: 'Total Recovered',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'seriousCritical',
+                      title: 'Serious, Critical',
+                    ),
+                    FilterWidget(
+                      locData: locData,
+                      filterBy: 'activeCases',
+                      title: 'Active Cases',
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Filtered by ',
+                            style: Theme.of(context).textTheme.body2.copyWith(
+                                  fontFamily: pRegular,
+                                  fontSize: 11.0,
+                                ),
                           ),
-                          suffixIcon: GestureDetector(
-                            child: Icon(
-                              Icons.backspace,
-                              color: antiFlashWhite,
-                              size: 20.0,
+                          TextSpan(
+                            text: '${locData.filterTitle}',
+                            style: TextStyle(
+                              fontFamily: pBold,
+                              color: one,
+                              fontSize: 11,
                             ),
-                            onTap: locData.clearTxt,
                           ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: antiFlashWhite,
-                            size: 20,
-                          ),
-                          filled: true,
-                          fillColor: box,
-                          hintText: 'Search a country',
-                          hintStyle: TextStyle(
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'As of ${locData.date}',
+                      style: Theme.of(context).textTheme.body2.copyWith(
                             fontFamily: pMedium,
-                            color: antiFlashWhite,
+                            fontSize: 11.0,
                           ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xff5433FF),
-                              style: BorderStyle.solid,
-                              width: 1.0,
-                            ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          locData.loading
+              ? Expanded(
+                  child: Container(
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        LoadingBouncingGrid.circle(
+                          backgroundColor: one,
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          'Loading',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
                         ),
-                        scrollPhysics: BouncingScrollPhysics(),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        'As of ${locData.date}',
-                        style: Theme.of(context).textTheme.body2.copyWith(
-                              fontFamily: pMedium,
-                              fontSize: 17.0,
-                            ),
-                      )
-                    ],
+                      ],
+                    )),
                   ),
-                ),
-                TestWidget(),
-              ],
-            );
+                )
+              : TestWidget(),
+        ],
+      );
     }
 
     int _parseString(String data) {
@@ -447,6 +532,16 @@ class HomePage extends StatelessWidget {
       backgroundColor: five,
       appBar: AppBar(
         backgroundColor: box,
+        actions: <Widget>[
+          IconButton(
+            tooltip: 'Reverse',
+            onPressed: () => locData.reverseList(),
+            icon: Icon(
+              Icons.compare_arrows,
+              color: Colors.white,
+            ),
+          )
+        ],
         title: Column(
           children: <Widget>[
             Text(

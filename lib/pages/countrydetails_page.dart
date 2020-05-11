@@ -34,8 +34,8 @@ class _CountryDetailsState extends State<CountryDetails> {
       country = "Korea, South";
     }
     http.Client client = http.Client();
-    http.Response response = await client
-        .get("https://covid19-codej.herokuapp.com/historical/$country");
+    http.Response response = await client.get(
+        "https://first-express-app-276913.df.r.appspot.com/historical/$country");
     var data = response.body;
     var jsonData = jsonDecode(data);
 

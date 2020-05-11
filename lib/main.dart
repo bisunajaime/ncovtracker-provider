@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ncov_tracker/pages/homepage.dart';
+
 import 'package:ncov_tracker/pages/latest_updates.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:provider/provider.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'constants/const_vars.dart';
 
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          title: 'nCovEr',
+          title: 'COVID-19 CodeJ',
           debugShowCheckedModeBanner: false,
           routes: {
             'world_totals': (context) => WorldTotals(),
@@ -70,7 +72,40 @@ class MyApp extends StatelessWidget {
                   fontFamily: pMedium,
                 ),
               )),
-          home: HomePage(),
+          home: SplashScreen(
+            seconds: 5,
+            image: Image(
+              image: AssetImage('assets/images/launchlogo.png'),
+            ),
+            photoSize: 70,
+            gradientBackground: LinearGradient(
+              colors: [
+                box,
+                russianViolet,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            loadingText: Text(
+              'Getting things done',
+              style: TextStyle(
+                fontFamily: pRegular,
+                fontSize: 15,
+                color: two,
+              ),
+            ),
+            loaderColor: one,
+            title: Text(
+              'COVID-19 Tracker',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: pBold,
+                color: dustStorm,
+                fontSize: 15,
+              ),
+            ),
+            navigateAfterSeconds: new HomePage(),
+          ),
         ),
       ),
     );
