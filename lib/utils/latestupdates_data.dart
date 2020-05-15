@@ -67,8 +67,8 @@ class LatestUpdatesData extends ChangeNotifier {
 
     _setDate(DateTime.now());
     http.Client client = http.Client();
-    http.Response response = await client
-        .get("https://first-express-app-276913.df.r.appspot.com/latest-news");
+    http.Response response =
+        await client.get("https://covid19-codej.herokuapp.com/latest-news");
     List updatesList = jsonDecode(response.body) as List;
     _latestUpdatesModel =
         updatesList.map((l) => LatestUpdatesModel.fromJson(l)).toList();

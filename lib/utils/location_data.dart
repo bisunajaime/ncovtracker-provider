@@ -167,8 +167,8 @@ class LocationData extends ChangeNotifier {
     _setDate(DateTime.now());
     setLoading(true);
     http.Client client = http.Client();
-    http.Response response = await client.get(
-        'https://first-express-app-276913.df.r.appspot.com/countries/sort/$_filterBy');
+    http.Response response = await client
+        .get('https://covid19-codej.herokuapp.com/countries/sort/$_filterBy');
     List data = jsonDecode(response.body) as List;
     _locationList = data.map((d) => LocationModel.fromJson(d)).toList();
     _locationList.removeAt(0);
@@ -180,8 +180,8 @@ class LocationData extends ChangeNotifier {
     setLoadingTotals(true);
     _setDate(DateTime.now());
     http.Client client = http.Client();
-    http.Response resResponse = await client
-        .get('https://first-express-app-276913.df.r.appspot.com/totals');
+    http.Response resResponse =
+        await client.get('https://covid19-codej.herokuapp.com/totals');
     _moreResults = MoreResults.fromJson(jsonDecode(resResponse.body));
     client.close();
     setLoadingTotals(false);
