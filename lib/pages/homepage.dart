@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';
+import 'package:ncov_tracker/pages/news_page.dart';
+import 'package:ncov_tracker/pages/selectcategory_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
@@ -742,6 +744,31 @@ class HomePage extends StatelessWidget {
                   ),
                   title: Text(
                     'Latest Updates',
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontSize: 15.0,
+                          fontFamily: pMedium,
+                        ),
+                  ),
+                ),
+              ),
+              MaterialButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelectCategoryPage(),
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                color: box,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.art_track,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Headlines',
                     style: Theme.of(context).textTheme.title.copyWith(
                           fontSize: 15.0,
                           fontFamily: pMedium,

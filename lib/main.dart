@@ -4,6 +4,7 @@ import 'package:ncov_tracker/pages/homepage.dart';
 import 'package:ncov_tracker/pages/latest_updates.dart';
 import 'package:ncov_tracker/pages/maps_page.dart';
 import 'package:ncov_tracker/pages/world_totals.dart';
+import 'package:ncov_tracker/utils/latestnews_data.dart';
 import 'package:ncov_tracker/utils/latestupdates_data.dart';
 import 'package:ncov_tracker/utils/location_data.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,10 @@ class MyApp extends StatelessWidget {
             create: (context) => LatestUpdatesData(),
             lazy: true,
           ),
+          ChangeNotifierProvider<LatestNewsData>(
+            create: (context) => LatestNewsData(),
+            lazy: true,
+          )
         ],
         child: MaterialApp(
           title: 'COVID-19 CodeJ',
