@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
                 ),
               )),
           home: SplashScreen(
-            seconds: 5,
+            seconds: 2,
             image: Image(
               image: AssetImage('assets/images/launchlogo.png'),
             ),

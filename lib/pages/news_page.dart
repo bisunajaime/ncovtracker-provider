@@ -10,17 +10,25 @@ import '../constants/const_vars.dart';
 import '../constants/const_vars.dart';
 import '../constants/const_vars.dart';
 import '../constants/const_vars.dart';
-import '../constants/const_vars.dart';
 
 class NewsPage extends StatelessWidget {
+  final String category;
+
+  NewsPage({this.category});
+
   @override
   Widget build(BuildContext context) {
     final latestNewsData = Provider.of<LatestNewsData>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Latest News',
+          'Latest News for $category',
+          style: TextStyle(
+            fontFamily: pBold,
+            fontSize: 15,
+          ),
         ),
+        centerTitle: true,
         backgroundColor: box,
       ),
       backgroundColor: five,
@@ -178,11 +186,11 @@ class NewsWidget extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 10,
+                                        height: 5,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             article.author.contains('http')
@@ -194,6 +202,9 @@ class NewsWidget extends StatelessWidget {
                                               fontFamily: pRegular,
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
                                           Text(
                                             DateFormat.yMd().add_jm().format(
                                                   DateTime.parse(
@@ -202,7 +213,8 @@ class NewsWidget extends StatelessWidget {
                                                 ),
                                             style: TextStyle(
                                               fontSize: 10,
-                                              fontFamily: pRegular,
+                                              fontFamily: pMedium,
+                                              color: Colors.amberAccent,
                                             ),
                                           )
                                         ],

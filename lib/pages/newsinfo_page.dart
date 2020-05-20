@@ -34,9 +34,10 @@ class NewsInfo extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 20,
           ),
         ),
+        centerTitle: true,
         backgroundColor: box,
       ),
       body: ListView(

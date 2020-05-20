@@ -25,12 +25,22 @@ class LatestNewsData extends ChangeNotifier {
 
   // fetch data
   Future<LatestNewsModel> getLatestNews() async {
-    http.Client client = new http.Client();
-    http.Response response = await client.get(
-        'https://newsapi.org/v2/top-headlines?category=$category&country=ph&apiKey=$key');
-    var data = jsonDecode(response.body);
-    latestNews = LatestNewsModel.fromJson(data);
-    print(latestNews.articlesList.length);
-    return latestNews;
+    if (category != "covid") {
+      http.Client client = new http.Client();
+      http.Response response = await client.get(
+          'https://newsapi.org/v2/top-headlines?category=$category&country=ph&apiKey=$key');
+      var data = jsonDecode(response.body);
+      latestNews = LatestNewsModel.fromJson(data);
+      print(latestNews.articlesList.length);
+      return latestNews;
+    } else {
+      http.Client client = new http.Client();
+      http.Response response = await client.get(
+          'https://newsapi.org/v2/everything?q=covid&qInTitle=covid&language=en&pageSize=50&apiKey=$key');
+      var data = jsonDecode(response.body);
+      latestNews = LatestNewsModel.fromJson(data);
+      print(latestNews.articlesList.length);
+      return latestNews;
+    }
   }
 }
