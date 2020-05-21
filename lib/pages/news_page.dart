@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
@@ -6,9 +7,6 @@ import 'package:ncov_tracker/pages/newsinfo_page.dart';
 import 'package:ncov_tracker/utils/latestnews_data.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/const_vars.dart';
-import '../constants/const_vars.dart';
-import '../constants/const_vars.dart';
 import '../constants/const_vars.dart';
 
 class NewsPage extends StatelessWidget {
@@ -265,13 +263,40 @@ class NewsWidget extends StatelessWidget {
                             height: 100,
                             margin: EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
-                              color: Colors.blueAccent,
+                              color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                imageUrl: article.urlToImage,
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  article.urlToImage,
+                                errorWidget: (context, url, _) =>
+                                    CachedNetworkImage(
+                                  imageUrl:
+                                      "https://via.placeholder.com/500x500?text=no+image+available",
+                                  fit: BoxFit.cover,
                                 ),
+                                alignment: Alignment.center,
+                                placeholder: (context, url) => Container(
+                                    child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    CircularProgressIndicator(),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'Loading',
+                                      style: TextStyle(
+                                        fontFamily: pMedium,
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                )),
                               ),
                             ),
                           ),

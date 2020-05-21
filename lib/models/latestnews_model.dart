@@ -50,7 +50,7 @@ class ArticlesList {
       description: json['description'] ?? "No description",
       url: json['url'] ?? "N/A",
       urlToImage: json['urlToImage'] ??
-          "https://via.placeholder.com/150x150?text=no+image+available",
+          "https://via.placeholder.com/500x500?text=no+image+available",
       publishedAt: json['publishedAt'],
       content: json['content'] ?? "Visit the website to learn more",
     );

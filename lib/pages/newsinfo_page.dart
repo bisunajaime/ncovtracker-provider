@@ -1,11 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ncov_tracker/models/latestnews_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constants/const_vars.dart';
-import '../constants/const_vars.dart';
-import '../constants/const_vars.dart';
 import '../constants/const_vars.dart';
 
 class NewsInfo extends StatelessWidget {
@@ -50,12 +48,17 @@ class NewsInfo extends StatelessWidget {
               height: 250,
               decoration: BoxDecoration(
                 color: Colors.blueAccent,
-                image: DecorationImage(
+              ),
+              child: CachedNetworkImage(
+                imageUrl: article.urlToImage,
+                errorWidget: (context, url, _) => CachedNetworkImage(
+                  imageUrl:
+                      "https://via.placeholder.com/500x500?text=no+image+available",
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                    article.urlToImage,
-                  ),
                 ),
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                placeholder: (context, url) => CircularProgressIndicator(),
               ),
             ),
           ),
