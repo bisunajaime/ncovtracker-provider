@@ -1,4 +1,4 @@
-# NcovEr
+# COVID19-Tracker
 Basic Flutter Application for tracking corona virus, data is fetched/scraped from the website [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/) using Dart's http and html libraries. WARNING: Spaghetti Code
 
 ## UI Images
